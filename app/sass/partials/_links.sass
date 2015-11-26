@@ -1,0 +1,21 @@
+.links
+  font-size: 0
+
+.links__item
+  display: inline-block
+  vertical-align: top
+  font-size: 14px
+  &:not(:last-child)
+    margin-right: 30px
+
+.links__link
+  display: block
+  opacity: 0.7
+  +trans(opacity)
+  text-decoration: none
+  color: inherit
+  .svg-icon
+    fill: white
+    display: block
+  &:hover
+    opacity: 1

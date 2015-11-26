@@ -1,0 +1,19 @@
+{
+  "boxes": [
+    {
+      "title": "Box 1",
+      "url": "http://www.someurl.com",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quasi molestiae minima voluptatem nihil nobis eius dolorem distinctio cumque veniam non impedit, iure repellendus dolore quam nesciunt voluptatibus fugiat repellat."
+    },
+    {
+      "title": "Box 2",
+      "url": "http://www.someurl.com2",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quasi molestiae minima voluptatem nihil nobis eius dolorem distinctio cumque veniam non impedit, iure repellendus dolore quam nesciunt voluptatibus fugiat repellat."
+    },
+    {
+      "title": "Box 3",
+      "url": "http://www.someurl3.com",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quasi molestiae minima voluptatem nihil nobis eius dolorem distinctio cumque veniam non impedit, iure repellendus dolore quam nesciunt voluptatibus fugiat repellat."
+    }
+  ]
+}
