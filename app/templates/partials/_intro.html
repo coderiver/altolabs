@@ -22,15 +22,24 @@
       <div class="intro__row intro__row_2">
         {{mixins.svgicon('char_s', 'char-7')}}
         {{mixins.svgicon('char_o', 'char-8')}}
+        {{mixins.svgicon('front_a', 'char-a-back')}}
         {{mixins.svgicon('front_a', 'char-a-front')}}
         {{mixins.svgicon('char_o2', 'char-9')}}
         {{mixins.svgicon('char_n', 'char-10')}}
       </div>
     </div>
 
+    <div class="intro__main-text">
+      <h1 class="h1">Alto combines marketing and design to create brands that lasts.</h1>
+
+      {{mixins.btnLink('View projects', 'btn_light')}}
+    </div>
+
     <div class="intro__footer">
-      <p>Scroll down</p>
-      {{mixins.svgicon('mouse')}}
+      <div class="scroll-down">
+        <span class="scroll-down__text">Scroll down</span>
+        {{mixins.svgicon('mouse')}}
+      </div>
     </div>
 
   </div>
