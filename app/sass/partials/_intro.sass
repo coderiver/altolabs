@@ -4,13 +4,19 @@
   color: white
   min-height: 100%
   min-height: 100vh
-  padding: 100px
+  padding: 100px 15px 150px
   box-sizing: border-box
   font-size: 0
   display: flex
   align-items: center
   justify-content: center
   font-size: 10px
+  font-size: 1vmin
+  +r(1300)
+    font-size: 0.76vmin
+  +r(1023)
+    padding-top: 60px
+
 
 .intro__center
   text-align: center
@@ -79,7 +85,13 @@
       margin: 0 em(38,154)
 
 .intro__footer
-  margin-top: em(100,10)
+  // margin-top: em(100,10)
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  text-align: center
+  padding-bottom: 50px
 
 .scroll-down
   display: inline-block

@@ -4,6 +4,9 @@ body
   +font-smoothing
   color: black
 
+.out
+  overflow: hidden
+
 .h1
   +f(pr, 50, 60)
   line-height: 1.4
@@ -20,6 +23,13 @@ body
 .h4
   +f(pi, 16, 120)
   color: #919191
+  text-transform: uppercase
+
++r(767)
+  .h1
+    font-size: 40px
+  .h2
+    font-size: 40px
 
 .svg-icon
   font-size: 40px
@@ -46,6 +56,8 @@ body
         background: rgba(white, 0.4)
         &:before
           background: white
+  &_font-sm
+    font-size: 14px
   &:hover
     .btn__border
       > span
