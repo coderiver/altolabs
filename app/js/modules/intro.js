@@ -1,4 +1,5 @@
-(() => {
+import events from './pub-sub';
+export default (() => {
     const $intro    = $('.intro');
     const $chars    = $intro.find('.intro__row .svg-icon:not(.char-placeholder)');
     const $charsA   = $intro.find('.char-a-front, .char-a-back');
@@ -7,68 +8,70 @@
     const $button   = $text.find('.btn');
     const $triangle = $intro.find('.intro__triangle .svg-icon');
     const tl        = new TimelineMax({ paused: true });
+    let animated    = false;
 
     // animations properties for each character in words 'coming soon'
+    let halfWindowWidth = window.innerWidth / 2;
     const animProp = [
         // c
         {
             duration: 0.5,
             delay: 0,
-            y: -300
+            y: -halfWindowWidth
         },
         // o
         {
             duration: 0.5,
             delay: 0.175,
-            y: -300
+            y: -halfWindowWidth
         },
         // m
         {
             duration: 0.25,
             delay: 0.4,
-            y: -300
+            y: -halfWindowWidth
         },
         // i
         {
             duration: 0.25,
             delay: 0.5,
-            y: -300
+            y: -halfWindowWidth
         },
         // n
         {
             duration: 0.4,
             delay: 0.25,
-            y: -300
+            y: -halfWindowWidth
         },
         // g
         {
             duration: 0.4,
             delay: 0.4,
-            y: -300
+            y: -halfWindowWidth
         },
         // s
         {
             duration: 0.5,
             delay: 0.05,
-            y: 300
+            y: halfWindowWidth
         },
         // o
         {
             duration: 0.25,
             delay: 0.5,
-            y: 300
+            y: halfWindowWidth
         },
         // o
         {
             duration: 0.4,
             delay: 0.25,
-            y: 300
+            y: halfWindowWidth
         },
         // n
         {
             duration: 0.25,
             delay: 0.45,
-            y: 300
+            y: halfWindowWidth
         }
     ];
 
@@ -87,6 +90,7 @@
     });
 
     tl
+        .add(() => animated = true)
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -117,32 +121,50 @@
             y: 0,
             opacity: 1,
             ease: Power1.easeInOut
-        }, '-=0.3');
+        }, '-=0.3')
+        .add(() => events.publish('introAnimEnd'));
 
-
-    function enableParallax() {
-        setTimeout(function() {
-            tl.play();
-        }, 2000);
-        setTimeout(function() {
-            tl.reverse();
-        }, 6000);
-    }
-
-    // function disableParallax() {
-
-    // }
-
-    enableParallax();
-
-    $intro.on('mousemove', (e) => {
+    function _rotateLayers(e) {
         let angle = (e.pageX - window.innerWidth / 2) * 0.008;
         TweenMax.set($parallax, {
             rotationY: `${angle}deg`
         });
-    });
+    }
+
+    function enableParallax() {
+        $intro.on('mousemove', _rotateLayers);
+    }
+
+    function disableParallax() {
+        $intro.off('mousemove', _rotateLayers);
+        TweenMax.to($parallax, 1, {
+            rotationY: 0
+        });
+    }
+
+    function playAnimations() {
+        return new Promise((resolve, reject) => {
+            if (animated) {
+                reject(new Error('Intro was successfully animated'));
+            } else {
+                tl.play().eventCallback('onComplete', resolve, [tl]);
+            }
+        });
+    }
+
+    function playAnimationsReverse() {
+        tl.reverse();
+    }
+
+    function wasAnimated() {
+        return animated;
+    }
 
     return {
-
-    }
+        enableParallax,
+        disableParallax,
+        playAnimations,
+        playAnimationsReverse,
+        wasAnimated
+    };
 })();
