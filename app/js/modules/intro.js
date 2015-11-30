@@ -1,6 +1,148 @@
 (() => {
+    const $intro    = $('.intro');
+    const $chars    = $intro.find('.intro__row .svg-icon:not(.char-placeholder)');
+    const $charsA   = $intro.find('.char-a-front, .char-a-back');
+    const $parallax = $intro.find('.intro__parallax-layer-1, .intro__parallax-layer-3');
+    const $text     = $intro.find('.intro__main-text');
+    const $button   = $text.find('.btn');
+    const $triangle = $intro.find('.intro__triangle .svg-icon');
+    const tl        = new TimelineMax({ paused: true });
 
-    var intro = $('#intro');
-    console.log(intro);
+    // animations properties for each character in words 'coming soon'
+    const animProp = [
+        // c
+        {
+            duration: 0.5,
+            delay: 0,
+            y: -300
+        },
+        // o
+        {
+            duration: 0.5,
+            delay: 0.175,
+            y: -300
+        },
+        // m
+        {
+            duration: 0.25,
+            delay: 0.4,
+            y: -300
+        },
+        // i
+        {
+            duration: 0.25,
+            delay: 0.5,
+            y: -300
+        },
+        // n
+        {
+            duration: 0.4,
+            delay: 0.25,
+            y: -300
+        },
+        // g
+        {
+            duration: 0.4,
+            delay: 0.4,
+            y: -300
+        },
+        // s
+        {
+            duration: 0.5,
+            delay: 0.05,
+            y: 300
+        },
+        // o
+        {
+            duration: 0.25,
+            delay: 0.5,
+            y: 300
+        },
+        // o
+        {
+            duration: 0.4,
+            delay: 0.25,
+            y: 300
+        },
+        // n
+        {
+            duration: 0.25,
+            delay: 0.45,
+            y: 300
+        }
+    ];
 
+    TweenMax.set($text, {
+        position: 'absolute',
+        top: '50%',
+        left: 0,
+        right: 0,
+        autoAlpha: 0,
+        marginTop: '-3em'
+    });
+
+    TweenMax.set($button, {
+        y: 100,
+        opacity: 0
+    });
+
+    tl
+        .add(
+            animProp.map((props, i) => {
+                return TweenMax.to($chars[i], props.duration, {
+                    y: props.y,
+                    delay: props.delay,
+                    opacity: 0,
+                    ease: Power1.easeInOut
+                });
+            }, 0)
+        )
+        .add([
+            TweenMax.to($charsA[0], 1, {
+                x: -1000,
+                ease: Power1.easeInOut
+            }),
+            TweenMax.to($charsA[1], 1, {
+                x: 1000,
+                ease: Power1.easeInOut
+            }),
+            TweenMax.to($triangle, 0.5, {
+                scale: 0.625
+            })
+        ])
+        .to($text, 0.75, {
+            autoAlpha: 1
+        })
+        .to($button, 0.5, {
+            y: 0,
+            opacity: 1,
+            ease: Power1.easeInOut
+        }, '-=0.3');
+
+
+    function enableParallax() {
+        setTimeout(function() {
+            tl.play();
+        }, 2000);
+        setTimeout(function() {
+            tl.reverse();
+        }, 6000);
+    }
+
+    // function disableParallax() {
+
+    // }
+
+    enableParallax();
+
+    $intro.on('mousemove', (e) => {
+        let angle = (e.pageX - window.innerWidth / 2) * 0.008;
+        TweenMax.set($parallax, {
+            rotationY: `${angle}deg`
+        });
+    });
+
+    return {
+
+    }
 })();
