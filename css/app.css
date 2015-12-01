@@ -51,8 +51,8 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 
 .h4 { font-family: "playfairdisplay-italic"; font-weight: normal; font-size: 16px; letter-spacing: 0.12em; color: #919191; text-transform: uppercase; }
 
-@media only screen and (max-width: 767px) { .h1 { font-size: 40px; }
-  .h2 { font-size: 40px; } }
+@media only screen and (max-width: 767px) { .h1 { font-size: 32px; }
+  .h2 { font-size: 32px; } }
 
 .svg-icon { display: inline-block; font-size: 40px; }
 
@@ -130,7 +130,9 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 
 .svg-triangle { width: 0.9em; height: 1em; fill: #E46363; }
 
-.intro { position: relative; background: black; color: white; min-height: 100%; min-height: 100vh; padding: 100px 15px 150px; box-sizing: border-box; font-size: 0; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; font-size: 10px; font-size: 1vmin; }
+.intro-container { position: absolute; z-index: 99; top: 0; left: 0; right: 0; -webkit-perspective: 1500px; perspective: 1500px; overflow: hidden; background: black; }
+
+.intro { position: relative; background: black; color: white; min-height: 100%; min-height: 100vh; padding: 100px 15px 150px; box-sizing: border-box; font-size: 0; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; font-size: 10px; font-size: 1vmin; -webkit-transform-origin: center bottom; -ms-transform-origin: center bottom; transform-origin: center bottom; }
 
 @media only screen and (max-width: 1300px) { .intro { font-size: 0.76vmin; } }
 
@@ -146,10 +148,6 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 
 .intro__parallax-layer-3 { position: absolute; z-index: 2; left: 0; right: 0; bottom: 12em; }
 
-.char-placeholder { visibility: hidden; opacity: 0; }
-
-.char-a-front, .char-a-back { position: absolute; bottom: 0; left: 50%; font-size: 55.9em; margin: 0 0 0 -0.48em; }
-
 .intro__links { position: absolute; top: 60px; right: 60px; }
 
 .intro__triangle { margin-bottom: 16.4em; }
@@ -158,17 +156,11 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 
 .intro__main-text { font-family: "playfairdisplay-regular"; font-weight: normal; font-size: 50px; letter-spacing: 0.06em; line-height: 1.4; max-width: 17.8em; color: #FFF; margin: auto; }
 
-.intro__main-text .btn { display: block; margin: 110px auto 0; }
+.intro__main-text .btn { display: block; margin: 12.35955% auto 0; }
 
 .intro__row { line-height: 0; -webkit-perspective: 1000px; perspective: 1000px; }
 
 .intro__row:not(:first-child) { margin-top: 6em; }
-
-.intro__row .svg-icon { position: relative; z-index: 2; font-size: 15.4em; margin: 0 0.11039em; }
-
-.intro__row .char-a-front, .intro__row .char-a-back { position: absolute; z-index: 1; bottom: 0; left: 50%; font-size: 55.9em; margin: 0 0 0 -0.48em; }
-
-.intro__row .char-a-front ~ .svg-icon { z-index: 0; }
 
 .intro__row .svg-char_n2 { width: 0.9216em; }
 
@@ -180,13 +172,29 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 
 .intro__footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding-bottom: 50px; }
 
-.scroll-down { display: inline-block; font-family: "montserrat-light"; font-weight: normal; font-size: 13px; letter-spacing: 0.2em; color: #FFF; text-align: center; text-transform: uppercase; cursor: pointer; }
+.char { display: inline-block; vertical-align: middle; position: relative; z-index: 2; font-size: 15.4em; margin: 0 0.11039em; }
+
+.char-placeholder { visibility: hidden; opacity: 0; }
+
+.char-a-shadow, .char-a { position: absolute; bottom: 0; left: 50%; font-size: 55.9em; margin: 0 0 0 -0.48em; background-repeat: no-repeat; background-position: center; background-size: contain; width: 0.9535em; height: 1em; }
+
+.char-a-shadow { font-size: 68em; margin-bottom: -0.10147em; background-image: url("../img/svg/char-a-shadow.svg"); }
+
+.char-o-shadow { width: 1.064em; height: 1em; font-size: 20.5em; margin: -0.1561em 0.06829em; background-repeat: no-repeat; background-size: contain; background-position: center; background-image: url("../img/svg/char-o-shadow.svg"); }
+
+.scroll-down { display: inline-block; font-family: "montserrat-light"; font-weight: normal; font-size: 13px; letter-spacing: 0.2em; min-width: 200px; color: #FFF; text-align: center; text-transform: uppercase; cursor: pointer; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
 
 .scroll-down .svg-icon { display: block; margin: 25px auto 0; fill: white; font-size: 48px; }
 
-.scroll-down:hover .scroll-down__text { -webkit-transform: translate3d(0, 10px, 0); transform: translate3d(0, 10px, 0); }
+.scroll-down:hover .scroll-down__text, .scroll-down:hover .scroll-down__alt-text { -webkit-transform: translate3d(0, 10px, 0); transform: translate3d(0, 10px, 0); }
 
-.scroll-down__text { display: block; transition: -webkit-transform 0.5s ease; transition: transform 0.5s ease; transition: transform 0.5s ease, -webkit-transform 0.5s ease; }
+.intro.is-animated .scroll-down .scroll-down__text { opacity: 0; visibility: hidden; }
+
+.intro.is-animated .scroll-down .scroll-down__alt-text { opacity: 1; visibility: visible; }
+
+.scroll-down__text { display: block; transition: all 0.5s ease; }
+
+.scroll-down__alt-text { position: absolute; top: 0; left: 0; right: 0; transition: all 0.5s ease; opacity: 0; visibility: hidden; }
 
 .links { font-size: 0; }
 
@@ -211,6 +219,10 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 .header__left { float: left; }
 
 .header__right { float: right; }
+
+.main-content-container { position: absolute; z-index: 0; top: 0; left: 0; right: 0; min-height: 100vh; overflow: hidden; background: black; -webkit-perspective: 1500px; perspective: 1500px; }
+
+.main-content { -webkit-transform-origin: center top; -ms-transform-origin: center top; transform-origin: center top; background: white; }
 
 .project-container { position: relative; }
 
@@ -291,5 +303,17 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
   .project .project__description { padding: 0; }
   .project .qmedic-interface { position: static; display: block; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); }
   .project .milkyway { position: relative; margin: auto; margin-top: 20.4978%; left: -4.39239%; } }
+
+.pagination { position: fixed; z-index: 9; top: 0; right: 50px; bottom: 0; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; }
+
+.pagination__link { display: block; position: relative; width: 40px; height: 40px; box-sizing: border-box; cursor: pointer; color: inherit; text-decoration: none; opacity: 0.5; }
+
+.pagination__link:not(:first-child) { margin-top: 30px; }
+
+.pagination__link:before { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; border-radius: 50%; background: white; margin: -5px 0 0 -5px; }
+
+.pagination__link svg { -webkit-transform: rotate(-90deg); -ms-transform: rotate(-90deg); transform: rotate(-90deg); display: block; stroke: white; stroke-width: 1px; fill: none; stroke-dashoffset: 120px; stroke-dasharray: 120px; transition: stroke-dashoffset 0.5s ease; }
+
+.pagination__link:hover svg, .pagination__link.is-active svg { stroke-dashoffset: 0; }
 
 /*# sourceMappingURL=app.css.map */
