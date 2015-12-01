@@ -1,17 +1,19 @@
-import events from './pub-sub';
+import events from './events';
+
 export default (() => {
-    const $intro    = $('.intro');
-    const $chars    = $intro.find('.intro__row .svg-icon:not(.char-placeholder)');
-    const $charsA   = $intro.find('.char-a-front, .char-a-back');
-    const $parallax = $intro.find('.intro__parallax-layer-1, .intro__parallax-layer-3');
-    const $text     = $intro.find('.intro__main-text');
-    const $button   = $text.find('.btn');
-    const $triangle = $intro.find('.intro__triangle .svg-icon');
-    const tl        = new TimelineMax({ paused: true });
-    let animated    = false;
+    const $intro     = $('.intro');
+    const $chars     = $intro.find('.intro__row .char:not(.char-placeholder)');
+    const $charsA    = $intro.find('.char-a, .char-a-shadow');
+    const $parallax  = $intro.find('.intro__parallax-layer-1, .intro__parallax-layer-3');
+    const $text      = $intro.find('.intro__main-text');
+    const $button    = $text.find('.btn');
+    const $triangle  = $intro.find('.intro__triangle .svg-icon');
+    const $scrollBtn = $intro.find('.scroll-down');
+    const tl         = new TimelineMax({ paused: true });
+    let animated     = false;
 
     // animations properties for each character in words 'coming soon'
-    let halfWindowWidth = window.innerWidth / 2;
+    let halfWindowWidth = 200;
     const animProp = [
         // c
         {
@@ -81,7 +83,7 @@ export default (() => {
         left: 0,
         right: 0,
         autoAlpha: 0,
-        marginTop: '-3em'
+        marginTop: '-2em'
     });
 
     TweenMax.set($button, {
@@ -89,8 +91,7 @@ export default (() => {
         opacity: 0
     });
 
-    tl
-        .add(() => animated = true)
+    tl.add(() => animated = true)
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -101,13 +102,14 @@ export default (() => {
                 });
             }, 0)
         )
+        .add(() => $intro.addClass('is-animated'))
         .add([
-            TweenMax.to($charsA[0], 1, {
-                x: -1000,
+            TweenMax.to($charsA[1], 1, {
+                xPercent: -200,
                 ease: Power1.easeInOut
             }),
-            TweenMax.to($charsA[1], 1, {
-                x: 1000,
+            TweenMax.to($charsA[0], 1, {
+                xPercent: 200,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($triangle, 0.5, {
@@ -122,7 +124,19 @@ export default (() => {
             opacity: 1,
             ease: Power1.easeInOut
         }, '-=0.3')
-        .add(() => events.publish('introAnimEnd'));
+        // .add([
+        //     TweenMax.to($intro, 1, {
+        //         rotationX: 90,
+        //         ease: Power1.easeInOut
+        //     }),
+        //     TweenMax.to($intro.parent(), 1, {
+        //         y: '-100%',
+        //         ease: Power1.easeInOut
+        //     })
+        // ])
+        .add(() => {
+            events.publish(events.names.INTRO_END_ANIMATIONS, { tl });
+        });
 
     function _rotateLayers(e) {
         let angle = (e.pageX - window.innerWidth / 2) * 0.008;
@@ -143,13 +157,8 @@ export default (() => {
     }
 
     function playAnimations() {
-        return new Promise((resolve, reject) => {
-            if (animated) {
-                reject(new Error('Intro was successfully animated'));
-            } else {
-                tl.play().eventCallback('onComplete', resolve, [tl]);
-            }
-        });
+        if (animated) return;
+        tl.play();
     }
 
     function playAnimationsReverse() {
@@ -160,11 +169,21 @@ export default (() => {
         return animated;
     }
 
+    function toggleScrollDownBtnText() {
+        $scrollBtn.text();
+    }
+
+    function setProgress(progress) {
+        tl.progress(progress);
+    }
+
     return {
         enableParallax,
         disableParallax,
         playAnimations,
         playAnimationsReverse,
-        wasAnimated
+        wasAnimated,
+        toggleScrollDownBtnText,
+        setProgress
     };
 })();

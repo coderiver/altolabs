@@ -1,3 +1,13 @@
+.intro-container
+  position: absolute
+  z-index: 99
+  top: 0
+  left: 0
+  right: 0
+  perspective: 1500px
+  overflow: hidden
+  background: black
+
 .intro
   position: relative
   background: black
@@ -12,11 +22,11 @@
   justify-content: center
   font-size: 10px
   font-size: 1vmin
+  transform-origin: center bottom
   +r(1300)
     font-size: 0.76vmin
   +r(1023)
     padding-top: 60px
-
 
 .intro__center
   text-align: center
@@ -41,18 +51,6 @@
   right: 0
   bottom: em(120, 10)
 
-.char-placeholder
-  visibility: hidden
-  opacity: 0
-
-.char-a-front,
-.char-a-back
-  position: absolute
-  bottom: 0
-  left: 50%
-  font-size: em(559,10)
-  margin: 0 0 0 -0.48em
-
 .intro__links
   position: absolute
   top: 60px
@@ -73,33 +71,13 @@
   margin: auto
   .btn
     display: block
-    margin: 110px auto 0
+    margin: percentage(110/890) auto 0
 
 .intro__row
   line-height: 0
   perspective: 1000px
   &:not(:first-child)
     margin-top: em(60,10)
-
-  .svg-icon
-    position: relative
-    z-index: 2
-    font-size: em(154,10)
-    margin: 0 em(17,154)
-
-  .char-a-front,
-  .char-a-back
-    position: absolute
-    z-index: 1
-    bottom: 0
-    left: 50%
-    font-size: em(559,10)
-    margin: 0 0 0 -0.48em
-
-  .char-a-front
-    // filter: drop-shadow(0px 0px 70px rgba(21,21,21,0.6));
-    & ~ .svg-icon
-      z-index: 0
 
   .svg-char_n2
     width: 0.9216em
@@ -120,9 +98,50 @@
   text-align: center
   padding-bottom: 50px
 
+.char
+  display: inline-block
+  vertical-align: middle
+  position: relative
+  z-index: 2
+  font-size: em(154,10)
+  margin: 0 em(17,154)
+
+.char-placeholder
+  visibility: hidden
+  opacity: 0
+
+.char-a-shadow,
+.char-a
+  position: absolute
+  bottom: 0
+  left: 50%
+  font-size: em(559,10)
+  margin: 0 0 0 -0.48em
+  background-repeat: no-repeat
+  background-position: center
+  background-size: contain
+  width: 0.9535em;
+  height: 1em;
+
+.char-a-shadow
+  font-size: em(680,10)
+  margin-bottom: em(-69,680)
+  background-image: img-url('svg/char-a-shadow.svg')
+
+.char-o-shadow
+  width: 1.064em;
+  height: 1em;
+  font-size: em(205,10)
+  margin: em(-32,205) em(14,205)
+  background-repeat: no-repeat
+  background-size: contain
+  background-position: center
+  background-image: img-url('svg/char-o-shadow.svg')
+
 .scroll-down
   display: inline-block
   +f(l, 13, 200)
+  min-width: 200px
   color: #FFF
   text-align: center
   text-transform: uppercase
@@ -134,9 +153,26 @@
     fill: white
     font-size: 48px
   &:hover
-    .scroll-down__text
+    .scroll-down__text,
+    .scroll-down__alt-text
       transform: translate3d(0,10px,0)
+  .intro.is-animated &
+    .scroll-down__text
+      opacity: 0
+      visibility: hidden
+    .scroll-down__alt-text
+      opacity: 1
+      visibility: visible
 
 .scroll-down__text
   display: block
-  transition: transform 0.5s ease
+  transition: all 0.5s ease
+
+.scroll-down__alt-text
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  transition: all 0.5s ease
+  opacity: 0
+  visibility: hidden

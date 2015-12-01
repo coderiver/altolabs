@@ -13,13 +13,13 @@ export default (() => {
 
     function disable() {
         if (disabled) return;
-        $win.on('mousewheel DOMMouseScroll touchmove', _preventScroll);
+        $win.on('mousewheel DOMMouseScroll touchmove scroll', _preventScroll);
         disabled = true;
     }
 
     function enable() {
         if (!disabled) return;
-        $win.off('mousewheel DOMMouseScroll touchmove', _preventScroll);
+        $win.off('mousewheel DOMMouseScroll touchmove scroll', _preventScroll);
         disabled = false;
     }
 

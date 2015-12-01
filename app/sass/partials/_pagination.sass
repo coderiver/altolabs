@@ -1,0 +1,45 @@
+.pagination
+  position: fixed
+  z-index: 9
+  top: 0
+  right: 50px
+  bottom: 0
+  display: flex
+  align-items: center
+  justify-content: center
+
+.pagination__link
+  display: block
+  position: relative
+  width: 40px
+  height: 40px
+  box-sizing: border-box
+  cursor: pointer
+  color: inherit
+  text-decoration: none
+  opacity: 0.5
+  &:not(:first-child)
+    margin-top: 30px
+  &:before
+    content: ""
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 10px
+    height: 10px
+    border-radius: 50%
+    background: white
+    margin: -5px 0 0 -5px
+  svg
+    transform: rotate(-90deg)
+    display: block
+    stroke: white
+    stroke-width: 1px
+    fill: none
+    stroke-dashoffset: 120px
+    stroke-dasharray: 120px
+    transition: stroke-dashoffset 0.5s ease
+  &:hover,
+  &.is-active
+    svg
+      stroke-dashoffset: 0

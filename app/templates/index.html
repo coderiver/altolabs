@@ -4,8 +4,13 @@ title: AltoLabs
 {% extends "layouts/_layout.html" %}
 {% block content %}
   {% include "partials/_header.html" %}
+  {% include "partials/_pagination.html" %}
   {% include "partials/_intro.html" %}
-  {% include "partials/_project-1.html" %}
-  {% include "partials/_project-2.html" %}
-  {% include "partials/_project-3.html" %}
+  <div class="main-content-container">
+    <div class="main-content">
+      {% include "partials/_project-1.html" %}
+      {# {% include "partials/_project-2.html" %} #}
+      {# {% include "partials/_project-3.html" %} #}
+    </div>
+  </div>
 {% endblock %}

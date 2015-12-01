@@ -26,8 +26,12 @@ const events = (() => {
             topics[topic].forEach(function(item) {
                 item(info != undefined ? info : {});
             });
+        },
+        names: {
+            INTRO_END_ANIMATIONS: 'introAnimEnd'
         }
     };
 })();
 
 export default events;
+
