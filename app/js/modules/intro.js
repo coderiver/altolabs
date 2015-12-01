@@ -105,11 +105,11 @@ export default (() => {
         .add(() => $intro.addClass('is-animated'))
         .add([
             TweenMax.to($charsA[1], 1, {
-                xPercent: -200,
+                x: -700,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($charsA[0], 1, {
-                xPercent: 200,
+                x: 700,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($triangle, 0.5, {
@@ -124,16 +124,6 @@ export default (() => {
             opacity: 1,
             ease: Power1.easeInOut
         }, '-=0.3')
-        // .add([
-        //     TweenMax.to($intro, 1, {
-        //         rotationX: 90,
-        //         ease: Power1.easeInOut
-        //     }),
-        //     TweenMax.to($intro.parent(), 1, {
-        //         y: '-100%',
-        //         ease: Power1.easeInOut
-        //     })
-        // ])
         .add(() => {
             events.publish(events.names.INTRO_END_ANIMATIONS, { tl });
         });

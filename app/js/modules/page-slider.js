@@ -15,10 +15,15 @@ export default class PageSlider {
         let curent = $(currentSlide);
         let next   = $(nextSlide);
         let ease   = Power1.easeInOut;
+        let tl     =  new TimelineMax();
 
-        TweenMax.to(curent, duration, { rotationX: 90, ease });
-        TweenMax.to(curent.parent(), duration, { yPercent: -100, ease });
-        TweenMax.to(next, duration, { rotationX: 0, ease });
-        TweenMax.to(next.parent(), duration, { yPercent: 0, ease });
+        tl.add([
+            TweenMax.to(curent, duration, { rotationX: 90, ease }),
+            TweenMax.to(curent.parent(), duration, { yPercent: -100, ease }),
+            TweenMax.to(next, duration, { rotationX: 0, ease }),
+            TweenMax.to(next.parent(), duration, { yPercent: 0, ease })
+        ]);
+
+        return tl;
     }
 }

@@ -25,7 +25,8 @@ PageSlider.setupSlides('.intro', '.main-content');
 
 events.subscribe(events.names.INTRO_END_ANIMATIONS, () => {
     scroll.enable();
-    PageSlider.slideFromTo('.intro', '.main-content');
+    let slideTL = PageSlider.slideFromTo('.intro', '.main-content');
+    setTimeout(() => slideTL.reverse(), 4000);
     $('.header__left .svg-icon').one('click', () => {
         intro.playAnimationsReverse();
     });
