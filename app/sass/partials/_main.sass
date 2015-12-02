@@ -8,12 +8,23 @@
   +clr
   +r(1024)
     padding: 15px
+    // background: rgba(white, 0.5)
 
 .header__left
   float: left
+  font-size: 0
 
 .header__right
   float: right
+
+.header__link
+  display: inline-block
+  color: inherit
+  text-decoration: none
+  opacity: 0.7
+  +trans(opacity)
+  &:hover
+   opacity: 1
 
 .main-content-container
   position: absolute
@@ -30,3 +41,29 @@
   transform-origin: center top
   background: white
 
+.section
+  perspective: 4500px
+  &.next
+    .section-content
+      transform-origin: center top
+      transform: translate3d(0,0,0) rotateX(-90deg)
+  &.prev
+    .section-content
+      transform-origin: center bottom
+      transform: translate3d(0,0,0) rotateX(90deg)
+  &.active
+    .section-content
+      transform: translate3d(0,0,0) rotateX(0)
+  +r(900)
+    height: auto !important
+    &.next,
+    &.prev,
+    &.active,
+      .section-content
+        transform-origin: center top
+        transform: none
+
+
+.section-content
+  transform-origin: center bottom
+  transition: transform 1s ease-out

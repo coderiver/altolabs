@@ -5,12 +5,32 @@ title: AltoLabs
 {% block content %}
   {% include "partials/_header.html" %}
   {% include "partials/_pagination.html" %}
-  {% include "partials/_intro.html" %}
-  <div class="main-content-container">
-    <div class="main-content">
-      {% include "partials/_project-1.html" %}
-      {# {% include "partials/_project-2.html" %} #}
-      {# {% include "partials/_project-3.html" %} #}
+
+  <div id="fullpage">
+
+    <div class="section">
+      <div class="section-content">
+        {% include "partials/_intro.html" %}
+      </div>
     </div>
+
+    <div class="section">
+      <div class="section-content">
+        {% include "partials/_qmedic.html" %}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-content">
+        {% include "partials/_milkyway.html" %}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-content">
+        {% include "partials/_rexpro.html" %}
+      </div>
+    </div>
+
   </div>
 {% endblock %}

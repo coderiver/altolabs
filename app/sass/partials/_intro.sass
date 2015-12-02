@@ -21,7 +21,7 @@
   align-items: center
   justify-content: center
   font-size: 10px
-  font-size: 1vmin
+  font-size: 0.9vmin
   transform-origin: center bottom
   +r(1300)
     font-size: 0.76vmin
@@ -58,20 +58,27 @@
 
 .intro__triangle
   margin-bottom: em(164,10)
+  position: relative
   .svg-icon
     display: block
     margin: auto
     font-size: em(80,10)
+  +r(500)
+    .is-animated &
+      top: -30px
 
 .intro__main-text
   +f(pr, 50, 60)
   line-height: 1.4
   max-width: em(890, 50)
+  padding: 0 20px
   color: #FFF
-  margin: auto
+  margin: -2em auto 0
   .btn
     display: block
     margin: percentage(110/890) auto 0
+  +r(500)
+    margin-top: -3em
 
 .intro__row
   line-height: 0
@@ -122,6 +129,7 @@
   background-size: contain
   width: 0.9535em;
   height: 1em;
+  +gpu
 
 .char-a-shadow
   font-size: em(680,10)

@@ -82,8 +82,7 @@ export default (() => {
         top: '50%',
         left: 0,
         right: 0,
-        autoAlpha: 0,
-        marginTop: '-2em'
+        autoAlpha: 0
     });
 
     TweenMax.set($button, {
@@ -91,7 +90,7 @@ export default (() => {
         opacity: 0
     });
 
-    tl.add(() => animated = true)
+    tl.add(() => animated = !animated)
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -102,7 +101,7 @@ export default (() => {
                 });
             }, 0)
         )
-        .add(() => $intro.addClass('is-animated'))
+        .add(() => $intro.toggleClass('is-animated'))
         .add([
             TweenMax.to($charsA[1], 1, {
                 x: -700,

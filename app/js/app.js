@@ -1,13 +1,30 @@
 import intro from './modules/intro';
 import scroll from './modules/scroll-controller';
 import events from './modules/events';
-import PageSlider from './modules/page-slider';
-// import './modules/scroll-scenes';
+import './modules/fp';
 
 const $win = $(window);
 
-scroll.disable();
+
+function disableScroll() {
+    scroll.disable();
+    $.fn.fullpage.setAllowScrolling(false);
+    $.fn.fullpage.setKeyboardScrolling(false);
+}
+
+function enableScroll() {
+    scroll.enable();
+    $.fn.fullpage.setAllowScrolling(true);
+    $.fn.fullpage.setKeyboardScrolling(true);
+}
+
+disableScroll();
 intro.enableParallax();
+
+$('.header__link').on('click', (e) => {
+    e.preventDefault();
+    $.fn.fullpage.moveTo('intro');
+});
 
 $win.on('mousewheel DOMMouseScroll scroll touchmove', (e) => {
     if (!intro.wasAnimated()) {
@@ -16,32 +33,47 @@ $win.on('mousewheel DOMMouseScroll scroll touchmove', (e) => {
     }
 });
 
-$('.header__left .svg-icon').on('click', () => {
+events.subscribe(events.names.INTRO_END_ANIMATIONS, enableScroll);
+
+events.subscribe(events.names.FP_BEFORE_CHANGE, (props) => {
+    let { slide, direction } = props;
+
+    // slide.prev().prevAll().removeClass('next').addClass('prev');
+    // slide.next().nextAll().removeClass('prev').addClass('next');
+
+    switch (direction) {
+    case 'down':
+        slide.addClass('prev');
+        break;
+    case 'up':
+        slide.addClass('next');
+        break;
+    }
+});
+
+events.subscribe(events.names.FP_LOOP_TOP, (props) => {
+    console.log('loopTop');
+    disableScroll();
     intro.playAnimationsReverse();
 });
 
-
-PageSlider.setupSlides('.intro', '.main-content');
-
-events.subscribe(events.names.INTRO_END_ANIMATIONS, () => {
-    scroll.enable();
-    let slideTL = PageSlider.slideFromTo('.intro', '.main-content');
-    setTimeout(() => slideTL.reverse(), 4000);
-    $('.header__left .svg-icon').one('click', () => {
-        intro.playAnimationsReverse();
-    });
+events.subscribe(events.names.FP_AFTER_CHANGE, (props) => {
+    let { slide, index } = props;
+    slide.removeClass('prev next');
+    $('.pagination__link')
+        .removeClass('is-active')
+        .eq(index - 1)
+        .addClass('is-active');
 });
 
-// (() => {
-//     const controller = new ScrollMagic.Controller({ container: 'body' });
+events.subscribe(events.names.FP_INTRO_FOCUSIN, () => {
+    console.log('intro in focus');
+    $('.links').removeClass('is-dark');
+    $('.pagination').removeClass('is-dark');
+});
 
-//     new ScrollMagic.Scene({
-//         duration: '100%',
-//         triggerHook: 'onLeave',
-//         triggerElement: 'body'
-//     }).on('start', (e) => {
-//         console.log(e);
-//     }).setPin('.intro').addTo(controller);
-// })();
-//
-
+events.subscribe(events.names.FP_INTRO_FOCUSOUT, () => {
+    console.log('intro out of focus');
+    $('.links').addClass('is-dark');
+    $('.pagination').addClass('is-dark');
+});

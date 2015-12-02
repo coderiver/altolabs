@@ -1,65 +1,63 @@
 <!-- BEGIN intro -->
-<div class="intro-container">
-  <div class="intro">
-    <div class="intro__center">
-      <div class="intro__links">
-        {% include "_links.html" %}
+<div class="intro">
+  <div class="intro__center">
+    {# <div class="intro__links">
+      {% include "_links.html" %}
+    </div> #}
+
+    <div class="intro__triangle">
+      {{mixins.svgicon('triangle')}}
+    </div>
+
+    <div class="intro__parallax">
+
+      <div class="intro__parallax-layer-1">
+        <div class="intro__row intro__row_1">
+          {{mixins.svgicon('char_c', 'char')}}
+          {{mixins.svgicon('char_o', 'char')}}
+          {{mixins.svgicon('char_m2', 'char')}}
+          {{mixins.svgicon('char_i', 'char')}}
+          {{mixins.svgicon('char_n2', 'char')}}
+          {{mixins.svgicon('char_g', 'char')}}
+        </div>
+        <div class="intro__row intro__row_2">
+          {{mixins.svgicon('char_s', 'char char-placeholder')}}
+          {{mixins.svgicon('char_o', 'char char-placeholder')}}
+          {{mixins.svgicon('char_o2', 'char')}}
+          {{mixins.svgicon('char_n', 'char')}}
+        </div>
       </div>
 
-      <div class="intro__triangle">
-        {{mixins.svgicon('triangle')}}
+      <div class="intro__parallax-layer-2">
+        {{mixins.svgicon('back_a', 'char char-a')}}
+        <div class="char char-a-shadow"></div>
       </div>
 
-      <div class="intro__parallax">
-
-        <div class="intro__parallax-layer-1">
-          <div class="intro__row intro__row_1">
-            {{mixins.svgicon('char_c', 'char')}}
-            {{mixins.svgicon('char_o', 'char')}}
-            {{mixins.svgicon('char_m2', 'char')}}
-            {{mixins.svgicon('char_i', 'char')}}
-            {{mixins.svgicon('char_n2', 'char')}}
-            {{mixins.svgicon('char_g', 'char')}}
-          </div>
-          <div class="intro__row intro__row_2">
-            {{mixins.svgicon('char_s', 'char char-placeholder')}}
-            {{mixins.svgicon('char_o', 'char char-placeholder')}}
-            {{mixins.svgicon('char_o2', 'char')}}
-            {{mixins.svgicon('char_n', 'char')}}
-          </div>
+      <div class="intro__parallax-layer-3">
+        <div class="intro__row intro__row_2">
+          {{mixins.svgicon('char_s', 'char')}}
+          <div class="char char-o-shadow"></div>
+          {{mixins.svgicon('char_o2', 'char char-placeholder')}}
+          {{mixins.svgicon('char_n', 'char char-placeholder')}}
         </div>
-
-        <div class="intro__parallax-layer-2">
-          {{mixins.svgicon('back_a', 'char char-a')}}
-          <div class="char char-a-shadow"></div>
-        </div>
-
-        <div class="intro__parallax-layer-3">
-          <div class="intro__row intro__row_2">
-            {{mixins.svgicon('char_s', 'char')}}
-            <div class="char char-o-shadow"></div>
-            {{mixins.svgicon('char_o2', 'char char-placeholder')}}
-            {{mixins.svgicon('char_n', 'char char-placeholder')}}
-          </div>
-        </div>
-
-      </div>
-
-      <div class="intro__main-text">
-        <h1 class="h1">Alto combines marketing and design to create brands that lasts.</h1>
-
-        {{mixins.btnLink('View projects', 'btn_light')}}
       </div>
 
     </div>
 
-    <div class="intro__footer">
-        <div class="scroll-down">
-          <span class="scroll-down__text">Scroll down</span>
-          <span class="scroll-down__alt-text">Keep Scrolling</span>
-          {{mixins.svgicon('mouse')}}
-        </div>
-      </div>
+    <div class="intro__main-text">
+      <h1 class="h1">Alto combines marketing and design to create brands that lasts.</h1>
+
+      {{mixins.btnLink('View projects', 'btn_light')}}
+    </div>
+
   </div>
+
+  <div class="intro__footer">
+      <div class="scroll-down">
+        <span class="scroll-down__text">Scroll down</span>
+        <span class="scroll-down__alt-text">Keep Scrolling</span>
+        {{mixins.svgicon('mouse')}}
+      </div>
+    </div>
 </div>
 <!-- END intro -->

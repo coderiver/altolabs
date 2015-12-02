@@ -2,11 +2,22 @@
   position: fixed
   z-index: 9
   top: 0
-  right: 50px
+  right: 10px
   bottom: 0
   display: flex
   align-items: center
   justify-content: center
+  &_dark,
+  &.is-dark
+    .pagination__link
+      &:before
+        background: black
+      svg
+        stroke: black
+  +rmin(1650)
+    right: 50px
+  +r(900)
+    display: none
 
 .pagination__link
   display: block
@@ -18,6 +29,7 @@
   color: inherit
   text-decoration: none
   opacity: 0.5
+  transition: opacity 0.5s ease
   &:not(:first-child)
     margin-top: 30px
   &:before
@@ -30,6 +42,7 @@
     border-radius: 50%
     background: white
     margin: -5px 0 0 -5px
+    transition: background-color 0.5s ease
   svg
     transform: rotate(-90deg)
     display: block
@@ -38,8 +51,9 @@
     fill: none
     stroke-dashoffset: 120px
     stroke-dasharray: 120px
-    transition: stroke-dashoffset 0.5s ease
+    transition: all 0.5s ease
   &:hover,
   &.is-active
+    opacity: 1
     svg
       stroke-dashoffset: 0
