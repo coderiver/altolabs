@@ -14,8 +14,8 @@ export default function activateFullpage() {
         fixedElements: null,
         navigation: false,
         navigationPosition: 'right',
-        responsiveWidth: 1023,
-        responsiveHeight: 700,
+        responsiveWidth: 900,
+        responsiveHeight: 650,
         loopTop: true, // important
         onLeave: function(index, nextIndex, direction) {
             let props = {

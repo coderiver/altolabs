@@ -2,9 +2,9 @@ import { createHeadingAnimFor, createAboutAnimFor } from './animations-base';
 import intro from './intro';
 
 export default (() => {
-    const $qmedic   = $('.project[data-animations=qmedic');
-    const $milkyway = $('.project[data-animations=milkyway');
-    const $rexpro   = $('.project[data-animations=rexpro');
+    const $qmedic   = $('.project[data-animations=qmedic]');
+    const $milkyway = $('.project[data-animations=milkyway]');
+    const $rexpro   = $('.project[data-animations=rexpro]');
 
     const qmedic    = new TimelineMax({ paused: true });
     const milkyway  = new TimelineMax({ paused: true });
@@ -115,7 +115,7 @@ export default (() => {
     return {
         qmedic,
         milkyway,
-        rexpro
-        // intro: intro.tl
+        rexpro,
+        intro: intro.tl
     };
 })();

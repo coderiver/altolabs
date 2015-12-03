@@ -4,9 +4,11 @@ import events     from './modules/events';
 import animations from './modules/animations';
 import activateFullpage from './modules/fp';
 
-const $win = $(window);
+const $win          = $(window);
+const mq            = window.matchMedia('(min-width: 1024px)');
 let lastSectionName = null;
 
+// functions
 function disableScroll() {
     scroll.disable();
     $.fn.fullpage.setAllowScrolling(false);
@@ -18,6 +20,27 @@ function enableScroll() {
     $.fn.fullpage.setAllowScrolling(true);
     $.fn.fullpage.setKeyboardScrolling(true);
 }
+
+function setAnimationsProgress(val = 0) {
+    for (let key in animations) {
+        if (!animations.hasOwnProperty(key) || key === 'intro') continue;
+        animations[key].progress(val);
+    }
+}
+
+function windowResizeHandler(mediaQuery) {
+    if (mediaQuery.matches) {
+        setAnimationsProgress(0);
+    } else {
+        setAnimationsProgress(1);
+    }
+}
+
+
+// events
+mq.addListener(function() {
+    windowResizeHandler(this);
+});
 
 $win.on('mousewheel DOMMouseScroll scroll touchmove', (e) => {
     if (!intro.wasAnimated()) {
@@ -63,15 +86,17 @@ events.subscribe(events.names.FP_AFTER_CHANGE, (props) => {
         .eq(index - 1)
         .addClass('is-active');
 
-    if (sectionAnim) sectionAnim.play();
-    if (prevSectionAnim) prevSectionAnim.progress(0).pause();
+    if (mq.matches) {
+        if (sectionAnim) sectionAnim.play();
+        if (prevSectionAnim) prevSectionAnim.progress(0).pause();
+    }
     lastSectionName = anchorLink;
 });
 
-events.subscribe(events.names.FP_LOOP_TOP, (props) => {
-    disableScroll();
-    intro.playAnimationsReverse();
-});
+// events.subscribe(events.names.FP_LOOP_TOP, (props) => {
+//     disableScroll();
+//     intro.playAnimationsReverse();
+// });
 
 events.subscribe(events.names.FP_INTRO_FOCUSIN, () => {
     $('.links').removeClass('is-dark');
@@ -84,6 +109,8 @@ events.subscribe(events.names.FP_INTRO_FOCUSOUT, () => {
 });
 
 
+// initial actions
 activateFullpage();
 intro.enableParallax();
 disableScroll();
+windowResizeHandler(mq);
