@@ -90,7 +90,8 @@ export default (() => {
         opacity: 0
     });
 
-    tl.add(() => animated = !animated)
+    tl
+        .add(() => animated = !animated)
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -169,6 +170,7 @@ export default (() => {
     return {
         enableParallax,
         disableParallax,
+        tl,
         playAnimations,
         playAnimationsReverse,
         wasAnimated,

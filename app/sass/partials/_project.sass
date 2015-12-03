@@ -9,6 +9,7 @@
   align-items: center
   justify-content: center
   overflow: hidden
+  background: white
   &_one-col
     display: block
     padding-bottom: 60px
@@ -60,6 +61,7 @@
   float: left
   width: 60%
   position: relative
+  z-index: 1
   box-sizing: border-box
 
 .project__image
@@ -92,6 +94,8 @@
   float: right
   width: 40%
   padding: 0 0 0 70px
+  position: relative
+  z-index: 0
   box-sizing: border-box
 
 .project__about-line
@@ -120,6 +124,11 @@
 .bg-qmedic
   background: white img-url('svg/qmedic-bg.svg') no-repeat center bottom
   background-size: 100% auto
+  top: auto
+  &:before
+    content: ""
+    display: block
+    padding-bottom: percentage(639/1920)
 
 .bg-milkyway
   background: white
@@ -156,8 +165,40 @@
     margin-left: -655px
 
 .bg-rex-pro
-  background: white img-url('svg/rex-pro-bg.svg') no-repeat center bottom
+  // background: white img-url('svg/rex-pro-bg.svg') no-repeat center bottom
   background-size: 100% auto
+  top: auto
+  overflow: hidden
+  &:before
+    content: ""
+    display: block
+    padding-bottom: percentage(582/1920)
+  &__layer-1
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: img-url('svg/rex-pro-bg-layer-1.svg') no-repeat center bottom
+    background-size: cover
+  &__layer-2
+    position: absolute
+    top: 0
+    left: 100%
+    width: 100%
+    height: 100%
+    background: #FFF
+  &__layer-3
+    position: absolute
+    width: percentage(1942/1920)
+    bottom: percentage(37/582)
+    right: percentage(10/1920)
+    &:before
+      content: ""
+      display: block
+      padding-bottom: percentage(215/1942)
+      background: img-url('svg/rex-pro-bg-layer-2.svg') no-repeat right center
+      background-size: contain
 
 
 $milkyway-width: 683

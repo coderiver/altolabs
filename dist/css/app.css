@@ -318,7 +318,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .project-container { position: relative; }
 
-.project { padding: 100px 60px 0; min-height: 100vh; box-sizing: border-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; overflow: hidden; }
+.project { padding: 100px 60px 0; min-height: 100vh; box-sizing: border-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; overflow: hidden; background: white; }
 
 .project_one-col { display: block; padding-bottom: 60px; }
 
@@ -342,7 +342,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .project__heading .h4 { margin-top: 15px; }
 
-.project__figure { float: left; width: 60%; position: relative; box-sizing: border-box; }
+.project__figure { float: left; width: 60%; position: relative; z-index: 1; box-sizing: border-box; }
 
 .project__image { display: block; max-width: 100%; margin: auto; position: absolute; top: -100px; top: -5vh; }
 
@@ -356,7 +356,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 @media only screen and (min-width: 1680px) { .rex-pro-interface { left: -100px; } }
 
-.project__about { float: right; width: 40%; padding: 0 0 0 70px; box-sizing: border-box; }
+.project__about { float: right; width: 40%; padding: 0 0 0 70px; position: relative; z-index: 0; box-sizing: border-box; }
 
 .project__about-line { width: 58px; height: 6px; margin: 25px 0; background: #00c6ca; }
 
@@ -366,7 +366,9 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .project__bg { position: absolute; pointer-events: none; z-index: 0; bottom: 0; left: 0; right: 0; top: 0; overflow: hidden; }
 
-.bg-qmedic { background: white url("../img/svg/qmedic-bg.svg") no-repeat center bottom; background-size: 100% auto; }
+.bg-qmedic { background: white url("../img/svg/qmedic-bg.svg") no-repeat center bottom; background-size: 100% auto; top: auto; }
+
+.bg-qmedic:before { content: ""; display: block; padding-bottom: 33.28125%; }
 
 .bg-milkyway { background: white; }
 
@@ -374,7 +376,17 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .bg-milkyway__layer-2 { position: absolute; top: 0; max-width: 588px; width: 588px; height: 100%; background: url("../img/milkyway-bg-layer-2.jpg") no-repeat center; background-size: cover; left: 50%; margin-left: -655px; }
 
-.bg-rex-pro { background: white url("../img/svg/rex-pro-bg.svg") no-repeat center bottom; background-size: 100% auto; }
+.bg-rex-pro { background-size: 100% auto; top: auto; overflow: hidden; }
+
+.bg-rex-pro:before { content: ""; display: block; padding-bottom: 30.3125%; }
+
+.bg-rex-pro__layer-1 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("../img/svg/rex-pro-bg-layer-1.svg") no-repeat center bottom; background-size: cover; }
+
+.bg-rex-pro__layer-2 { position: absolute; top: 0; left: 100%; width: 100%; height: 100%; background: #FFF; }
+
+.bg-rex-pro__layer-3 { position: absolute; width: 101.14583%; bottom: 6.35739%; right: 0.52083%; }
+
+.bg-rex-pro__layer-3:before { content: ""; display: block; padding-bottom: 11.07106%; background: url("../img/svg/rex-pro-bg-layer-2.svg") no-repeat right center; background-size: contain; }
 
 .milkyway { position: absolute; left: 0; width: 100%; max-width: 683px; }
 

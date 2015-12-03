@@ -1,8 +1,9 @@
 import events from './events';
 
-(() => {
-    const fp = $('#fullpage');
-    const slideCount = fp.find('.section').length;
+export default function activateFullpage() {
+    const fp         = $('#fullpage');
+    const slides     = fp.find('.section');
+    const slideCount = slides.length;
 
     fp.fullpage({
         verticalCentered: false,
@@ -39,6 +40,9 @@ import events from './events';
 
             if (index === 1) events.publish(events.names.FP_INTRO_FOCUSIN, props);
             events.publish(events.names.FP_AFTER_CHANGE, props);
+        },
+        afterRender: function() {
+            events.publish(events.names.FP_INIT, { slides });
         }
     });
-})();
+}

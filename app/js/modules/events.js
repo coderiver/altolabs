@@ -33,7 +33,8 @@ const events = (() => {
             FP_INTRO_FOCUSOUT: 'fpIntroFocusOut',
             FP_BEFORE_CHANGE: 'fpBeforeChange',
             FP_AFTER_CHANGE: 'fpAfterChange',
-            FP_LOOP_TOP: 'fpLoopTop'
+            FP_LOOP_TOP: 'fpLoopTop',
+            FP_INIT: 'fpInit'
         }
     };
 })();
