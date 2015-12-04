@@ -1,16 +1,15 @@
-import events from './events';
+import { pubSub, eventsNames } from './pub-sub';
 
 export default (() => {
-    const $intro     = $('.intro');
-    const $chars     = $intro.find('.intro__row .char:not(.char-placeholder)');
-    const $charsA    = $intro.find('.char-a, .char-a-shadow');
-    const $parallax  = $intro.find('.intro__parallax-layer-1, .intro__parallax-layer-3');
-    const $text      = $intro.find('.intro__main-text');
-    const $button    = $text.find('.btn');
-    const $triangle  = $intro.find('.intro__triangle .svg-icon');
-    const $scrollBtn = $intro.find('.scroll-down');
-    const tl         = new TimelineMax({ paused: true });
-    let animated     = false;
+    const $intro       = $('.intro');
+    const $chars       = $intro.find('.intro__row .char:not(.char-placeholder)');
+    const $charsA      = $intro.find('.char-a, .char-a-shadow');
+    const $parallax    = $intro.find('.intro__parallax-layer-1, .intro__parallax-layer-3');
+    const $text        = $intro.find('.intro__main-text');
+    const $button      = $text.find('.btn');
+    const $triangle    = $intro.find('.intro__triangle .svg-icon');
+    const animation    = new TimelineMax({ paused: true });
+    let parallaxActive = false;
 
     // animations properties for each character in words 'coming soon'
     let halfWindowWidth = 200;
@@ -90,8 +89,7 @@ export default (() => {
         opacity: 0
     });
 
-    tl
-        .add(() => animated = !animated)
+    animation
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -125,7 +123,7 @@ export default (() => {
             ease: Power1.easeInOut
         }, '-=0.3')
         .add(() => {
-            events.publish(events.names.INTRO_END_ANIMATIONS, { tl });
+            pubSub.emit(eventsNames.INTRO_END_ANIMATIONS, { animation });
         });
 
     function _rotateLayers(e) {
@@ -136,45 +134,23 @@ export default (() => {
     }
 
     function enableParallax() {
-        $intro.on('mousemove', _rotateLayers);
+        if (parallaxActive) return;
+        $(document).on('mousemove', _rotateLayers);
+        parallaxActive = true;
     }
 
     function disableParallax() {
-        $intro.off('mousemove', _rotateLayers);
+        if (!parallaxActive) return;
+        $(document).off('mousemove', _rotateLayers);
         TweenMax.to($parallax, 1, {
             rotationY: 0
         });
-    }
-
-    function playAnimations() {
-        if (animated) return;
-        tl.play();
-    }
-
-    function playAnimationsReverse() {
-        tl.reverse();
-    }
-
-    function wasAnimated() {
-        return animated;
-    }
-
-    function toggleScrollDownBtnText() {
-        $scrollBtn.text();
-    }
-
-    function setProgress(progress) {
-        tl.progress(progress);
+        parallaxActive = false;
     }
 
     return {
         enableParallax,
         disableParallax,
-        tl,
-        playAnimations,
-        playAnimationsReverse,
-        wasAnimated,
-        toggleScrollDownBtnText,
-        setProgress
+        animation
     };
 })();

@@ -1,6 +1,7 @@
 export default (() => {
     const $win    = $(window);
     let disabled  = false;
+    let direction = '';
     let scrollPos = $win.scrollTop();
 
     function _preventScroll(e) {
@@ -11,15 +12,26 @@ export default (() => {
         scrollPos = $win.scrollTop();
     });
 
+    function detectScrollDirection(e) {
+        direction = (e.originalEvent.wheelDelta >= 0) ? 'up' : 'down';
+    }
+
+    function mozDetectScrollDirection(e) {
+        direction = (e.originalEvent.detail <= 0) ? 'up' : 'down';
+    }
+
+    $('body').on('mousewheel', detectScrollDirection);
+    $('body').on('DOMMouseScroll', mozDetectScrollDirection);
+
     function disable() {
         if (disabled) return;
-        $win.on('mousewheel DOMMouseScroll touchmove scroll', _preventScroll);
+        $win.on('mousewheel DOMMouseScroll touchmove', _preventScroll);
         disabled = true;
     }
 
     function enable() {
         if (!disabled) return;
-        $win.off('mousewheel DOMMouseScroll touchmove scroll', _preventScroll);
+        $win.off('mousewheel DOMMouseScroll touchmove', _preventScroll);
         disabled = false;
     }
 
@@ -31,10 +43,15 @@ export default (() => {
         return scrollPos;
     }
 
+    function getDirection(argument) {
+        return direction;
+    }
+
     return {
         disable,
         enable,
         isDisabled,
+        getDirection,
         getScrollPos
     };
 })();

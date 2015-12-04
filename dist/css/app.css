@@ -203,7 +203,8 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 @media only screen and (max-width: 1300px) { .intro { font-size: 0.76vmin; } }
 
-@media only screen and (max-width: 1023px) { .intro { padding-top: 60px; } }
+@media only screen and (max-width: 1024px) { .intro { padding-top: 60px; }
+  .intro .intro__footer { padding-bottom: 20px; } }
 
 .intro__center { text-align: center; }
 
@@ -223,9 +224,11 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 @media only screen and (max-width: 500px) { .is-animated .intro__triangle { top: -30px; } }
 
-.intro__main-text { font-family: "playfairdisplay-regular"; font-weight: normal; font-size: 50px; letter-spacing: 0.06em; line-height: 1.4; max-width: 17.8em; padding: 0 20px; color: #FFF; margin: -2em auto 0; }
+.intro__main-text { position: absolute; top: 50%; left: 0; right: 0; visibility: hidden; font-family: "playfairdisplay-regular"; font-weight: normal; font-size: 50px; letter-spacing: 0.06em; line-height: 1.4; color: #FFF; margin: -2em auto 0; }
 
-.intro__main-text .btn { display: block; margin: 12.35955% auto 0; }
+.intro__main-text .btn { display: block; margin: 5.72917% auto 0; }
+
+.intro__main-text .h1 { margin: auto; max-width: 17.8em; padding: 0 20px; }
 
 @media only screen and (max-width: 500px) { .intro__main-text { margin-top: -3em; } }
 
@@ -332,19 +335,22 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .project_one-col .project__about-line { margin-left: auto; margin-right: auto; }
 
+@media only screen and (max-width: 1024px) { .project { padding-top: 70px; }
+  .project .project__heading { top: 70px; } }
+
 .project-milkyway .project__figure { width: 55%; }
 
 .project__inner { width: 100%; max-width: 1420px; box-sizing: border-box; margin: 160px 0 120px; position: relative; z-index: 0; *zoom: 1; }
 
 .project__inner:after { content: " "; display: table; clear: both; }
 
-.project__heading { position: absolute; z-index: 1; top: 100px; max-width: 1420px; margin: auto; left: 0; right: 0; text-align: center; }
+.project__heading { position: absolute; z-index: 1; top: 100px; margin: auto; left: 0; right: 0; text-align: center; }
 
 .project__heading .h4 { margin-top: 15px; }
 
 .project__figure { float: left; width: 60%; position: relative; z-index: 1; box-sizing: border-box; }
 
-.project__image { display: block; max-width: 100%; margin: auto; position: absolute; top: -100px; top: -5vh; }
+.project__image { display: block; max-width: 100%; margin: auto; position: absolute; top: -60px; top: -5vh; }
 
 @media only screen and (min-height: 800px) { .project__image { top: -9.2vh; } }
 

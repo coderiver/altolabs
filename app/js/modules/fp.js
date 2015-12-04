@@ -1,4 +1,4 @@
-import events from './events';
+import { pubSub, eventsNames } from './pub-sub';
 
 export default function activateFullpage() {
     const fp         = $('#fullpage');
@@ -16,7 +16,7 @@ export default function activateFullpage() {
         navigationPosition: 'right',
         responsiveWidth: 900,
         responsiveHeight: 650,
-        loopTop: true, // important
+        // loopTop: true, // important
         onLeave: function(index, nextIndex, direction) {
             let props = {
                 slide: this,
@@ -26,23 +26,23 @@ export default function activateFullpage() {
                 slideCount
             };
 
-            events.publish(events.names.FP_BEFORE_CHANGE, props);
+            pubSub.emit(eventsNames.FP_BEFORE_CHANGE, props);
             if (index === 1) {
-                if (nextIndex === slideCount) {
-                    events.publish(events.names.FP_LOOP_TOP, props);
-                    return false;
-                }
-                events.publish(events.names.FP_INTRO_FOCUSOUT, props);
+                // if (nextIndex === slideCount) {
+                //     pubSub.emit(eventsNames.FP_LOOP_TOP, props);
+                //     return false;
+                // }
+                pubSub.emit(eventsNames.FP_INTRO_FOCUSOUT, props);
             }
         },
         afterLoad: function(anchorLink, index) {
             let props = { slide: this, anchorLink, index };
 
-            if (index === 1) events.publish(events.names.FP_INTRO_FOCUSIN, props);
-            events.publish(events.names.FP_AFTER_CHANGE, props);
+            if (index === 1) pubSub.emit(eventsNames.FP_INTRO_FOCUSIN, props);
+            pubSub.emit(eventsNames.FP_AFTER_CHANGE, props);
         },
         afterRender: function() {
-            events.publish(events.names.FP_INIT, { slides });
+            pubSub.emit(eventsNames.FP_INIT, { slides });
         }
     });
 }

@@ -70,15 +70,22 @@
       top: -30px
 
 .intro__main-text
+  position: absolute
+  top: 50%
+  left: 0
+  right: 0
+  visibility: hidden
   +f(pr, 50, 60)
   line-height: 1.4
-  max-width: em(890, 50)
-  padding: 0 20px
   color: #FFF
   margin: -2em auto 0
   .btn
     display: block
-    margin: percentage(110/890) auto 0
+    margin: percentage(110/1920) auto 0
+  .h1
+    margin: auto
+    max-width: em(890, 50)
+    padding: 0 20px
   +r(500)
     margin-top: -3em
 

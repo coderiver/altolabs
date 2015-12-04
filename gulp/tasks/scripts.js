@@ -1,6 +1,7 @@
 var gulp        = require('gulp');
 var browserify  = require('browserify');
 var watchify    = require('watchify');
+var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var buffer      = require('vinyl-buffer');
 var uglify      = require('gulp-uglify');
@@ -20,16 +21,16 @@ var vendorBundleName = 'vendor.js';
 var props = {
     dest: [config.dest.js],
     entries: path.join(config.src.js, 'app.js'),
-    transform: ['coffeeify', 'babelify'],
+    transform: ['babelify'],
     noParse: ['jquery'],
-    extensions: ['.js', '.coffee'],
+    debug: true,
     cache: {},
     packageCache: {}
 };
 
 var propsVendor = {
     dest: [config.dest.js],
-    entries: path.join(config.src.js, 'vendor.js'),
+    entries: path.join(config.src.js, 'vendor.js')
 };
 
 function bundle(bundler, outputName) {

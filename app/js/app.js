@@ -1,8 +1,8 @@
-import intro      from './modules/intro';
-import scroll     from './modules/scroll-controller';
-import events     from './modules/events';
-import animations from './modules/animations';
-import activateFullpage from './modules/fp';
+import intro                                 from './modules/intro';
+import scroll                                from './modules/scroll-controller';
+import { pubSub, eventsNames }               from './modules/pub-sub';
+import { animations, setAnimationsProgress } from './modules/animations';
+import activateFullpage                      from './modules/fp';
 
 const $win          = $(window);
 const mq            = window.matchMedia('(min-width: 1024px)');
@@ -21,15 +21,9 @@ function enableScroll() {
     $.fn.fullpage.setKeyboardScrolling(true);
 }
 
-function setAnimationsProgress(val = 0) {
-    for (let key in animations) {
-        if (!animations.hasOwnProperty(key) || key === 'intro') continue;
-        animations[key].progress(val);
-    }
-}
-
-function windowResizeHandler(mediaQuery) {
-    if (mediaQuery.matches) {
+function windowResizeHandler(e) {
+    let matches = (e.target != null) ? e.target.matches : e.matches;
+    if (matches) {
         setAnimationsProgress(0);
     } else {
         setAnimationsProgress(1);
@@ -38,27 +32,31 @@ function windowResizeHandler(mediaQuery) {
 
 
 // events
-mq.addListener(function() {
-    windowResizeHandler(this);
+mq.addListener(function(e) {
+    windowResizeHandler(e);
 });
 
-$win.on('mousewheel DOMMouseScroll scroll touchmove', (e) => {
-    if (!intro.wasAnimated()) {
-        intro.disableParallax();
-        intro.playAnimations();
-    }
-});
-
-events.subscribe(events.names.FP_INIT, (props) => {
+pubSub.on(eventsNames.FP_INIT, (props) => {
     let { slides } = props;
     let activeSlide = slides.filter('.active');
+
     activeSlide.prevAll().addClass('prev');
     activeSlide.nextAll().addClass('next');
+
+    setTimeout(() => {
+        disableScroll();
+        intro.enableParallax();
+    }, 1);
+
+    $('.scroll-down').click(() => {
+        $win.trigger('mousewheel');
+        $win.trigger('DOMMouseScroll');
+    });
+
+    $('.intro__main-text .btn').on('click', $.fn.fullpage.moveSectionDown);
 });
 
-events.subscribe(events.names.INTRO_END_ANIMATIONS, enableScroll);
-
-events.subscribe(events.names.FP_BEFORE_CHANGE, (props) => {
+pubSub.on(eventsNames.FP_BEFORE_CHANGE, (props) => {
     let { slide, direction } = props;
 
     slide.prevAll().removeClass('next').addClass('prev');
@@ -74,7 +72,7 @@ events.subscribe(events.names.FP_BEFORE_CHANGE, (props) => {
     }
 });
 
-events.subscribe(events.names.FP_AFTER_CHANGE, (props) => {
+pubSub.on(eventsNames.FP_AFTER_CHANGE, (props) => {
     let { slide, index, anchorLink } = props;
     let sectionAnim = animations[anchorLink];
     let prevSectionAnim = animations[lastSectionName];
@@ -93,24 +91,30 @@ events.subscribe(events.names.FP_AFTER_CHANGE, (props) => {
     lastSectionName = anchorLink;
 });
 
-// events.subscribe(events.names.FP_LOOP_TOP, (props) => {
-//     disableScroll();
-//     intro.playAnimationsReverse();
-// });
-
-events.subscribe(events.names.FP_INTRO_FOCUSIN, () => {
-    $('.links').removeClass('is-dark');
-    $('.pagination').removeClass('is-dark');
+$win.on('mousewheel DOMMouseScroll', () => {
+    console.log(scroll.getDirection());
 });
 
-events.subscribe(events.names.FP_INTRO_FOCUSOUT, () => {
-    $('.links').addClass('is-dark');
-    $('.pagination').addClass('is-dark');
+pubSub.on(eventsNames.FP_INTRO_FOCUSIN, () => {
+    if (intro.animation.progress() === 1) intro.animation.reverse();
+    intro.enableParallax();
+    disableScroll();
+
+    pubSub.once(eventsNames.INTRO_END_ANIMATIONS, enableScroll);
+
+    $win.one('mousewheel DOMMouseScroll touchmove', (e) => {
+        intro.disableParallax();
+        intro.animation.play();
+    });
+
+    $('.links, .pagination').removeClass('is-dark');
+});
+
+pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, () => {
+    $('.links, .pagination').addClass('is-dark');
 });
 
 
 // initial actions
 activateFullpage();
-intro.enableParallax();
-disableScroll();
 windowResizeHandler(mq);

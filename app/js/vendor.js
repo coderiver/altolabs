@@ -1,4 +1,4 @@
-global.$ = global.jQuery = require('jquery');
-// global.ScrollMagic = require('scrollmagic');
+window.$ = window.jQuery = require('jquery');
 require('fullpage.js');
 require('gsap');
+require('svg4everybody')();

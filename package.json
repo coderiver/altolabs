@@ -15,7 +15,6 @@
     "babelify": "^7.2.0",
     "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
-    "coffeeify": "^1.2.0",
     "del": "^2.1.0",
     "gulp": "^3.9.0",
     "gulp-changed": "*",
@@ -49,8 +48,9 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.2.0",
+    "fullpage.js": "^2.7.4",
     "gsap": "^1.18.0",
     "jquery": "^2.1.4",
-    "fullpage.js": "^2.7.4"
+    "svg4everybody": "^2.0.1"
   }
 }
