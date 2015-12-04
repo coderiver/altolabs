@@ -4,7 +4,8 @@ import { pubSub, eventsNames }               from './modules/pub-sub';
 import { animations, setAnimationsProgress } from './modules/animations';
 import activateFullpage                      from './modules/fp';
 
-const $win          = $(window);
+const EVENTS_LIST   = 'mousewheel DOMMouseScroll touchmove';
+const $root         = $('#fullpage');
 const mq            = window.matchMedia('(min-width: 1024px)');
 let lastSectionName = null;
 
@@ -30,6 +31,27 @@ function windowResizeHandler(e) {
     }
 }
 
+function scrollHandlerWhenOnIntro(e) {
+    let direction = scroll.getDirection();
+    let progress  = intro.animation.progress();
+
+    console.log(direction);
+    switch (direction) {
+    case 'up':
+        if (progress === 1) intro.animation.reverse();
+        disableScroll();
+        break;
+    case 'down':
+        if (progress === 1) {
+            enableScroll();
+        } else {
+            intro.animation.play();
+            setTimeout(enableScroll, 500);
+        }
+        break;
+    }
+}
+
 
 // events
 mq.addListener(function(e) {
@@ -45,12 +67,11 @@ pubSub.on(eventsNames.FP_INIT, (props) => {
 
     setTimeout(() => {
         disableScroll();
-        intro.enableParallax();
+        if (intro.animation.progress() < 1) intro.enableParallax();
     }, 1);
 
     $('.scroll-down').click(() => {
-        $win.trigger('mousewheel');
-        $win.trigger('DOMMouseScroll');
+        $root.trigger('mousewheel');
     });
 
     $('.intro__main-text .btn').on('click', $.fn.fullpage.moveSectionDown);
@@ -91,26 +112,17 @@ pubSub.on(eventsNames.FP_AFTER_CHANGE, (props) => {
     lastSectionName = anchorLink;
 });
 
-$win.on('mousewheel DOMMouseScroll', () => {
-    console.log(scroll.getDirection());
-});
-
 pubSub.on(eventsNames.FP_INTRO_FOCUSIN, () => {
-    if (intro.animation.progress() === 1) intro.animation.reverse();
-    intro.enableParallax();
+    console.log('focus in');
     disableScroll();
-
-    pubSub.once(eventsNames.INTRO_END_ANIMATIONS, enableScroll);
-
-    $win.one('mousewheel DOMMouseScroll touchmove', (e) => {
-        intro.disableParallax();
-        intro.animation.play();
-    });
-
+    $root.on(EVENTS_LIST, scrollHandlerWhenOnIntro);
     $('.links, .pagination').removeClass('is-dark');
 });
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, () => {
+    console.log('focus out');
+    enableScroll();
+    $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
     $('.links, .pagination').addClass('is-dark');
 });
 

@@ -1,15 +1,15 @@
 export default (() => {
-    const $win    = $(window);
+    const $root   = $('#fullpage');
     let disabled  = false;
     let direction = '';
-    let scrollPos = $win.scrollTop();
+    let scrollPos = $(window).scrollTop();
 
     function _preventScroll(e) {
         e.preventDefault();
     }
 
-    $win.on('scroll', (e) => {
-        scrollPos = $win.scrollTop();
+    $root.on('scroll', (e) => {
+        scrollPos = $(window).scrollTop();
     });
 
     function detectScrollDirection(e) {
@@ -20,18 +20,18 @@ export default (() => {
         direction = (e.originalEvent.detail <= 0) ? 'up' : 'down';
     }
 
-    $('body').on('mousewheel', detectScrollDirection);
-    $('body').on('DOMMouseScroll', mozDetectScrollDirection);
+    $root.on('mousewheel', detectScrollDirection);
+    $root.on('DOMMouseScroll', mozDetectScrollDirection);
 
     function disable() {
         if (disabled) return;
-        $win.on('mousewheel DOMMouseScroll touchmove', _preventScroll);
+        $root.on('mousewheel DOMMouseScroll touchmove', _preventScroll);
         disabled = true;
     }
 
     function enable() {
         if (!disabled) return;
-        $win.off('mousewheel DOMMouseScroll touchmove', _preventScroll);
+        $root.off('mousewheel DOMMouseScroll touchmove', _preventScroll);
         disabled = false;
     }
 

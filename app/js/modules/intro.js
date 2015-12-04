@@ -76,20 +76,8 @@ export default (() => {
         }
     ];
 
-    TweenMax.set($text, {
-        position: 'absolute',
-        top: '50%',
-        left: 0,
-        right: 0,
-        autoAlpha: 0
-    });
-
-    TweenMax.set($button, {
-        y: 100,
-        opacity: 0
-    });
-
     animation
+        .add(toggleParallax)
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -114,10 +102,15 @@ export default (() => {
                 scale: 0.625
             })
         ])
-        .to($text, 0.75, {
+        .fromTo($text, 0.75, {
+            autoAlpha: 0
+        }, {
             autoAlpha: 1
         })
-        .to($button, 0.5, {
+        .fromTo($button, 0.5, {
+            y: 100,
+            opacity: 0
+        }, {
             y: 0,
             opacity: 1,
             ease: Power1.easeInOut
@@ -148,9 +141,18 @@ export default (() => {
         parallaxActive = false;
     }
 
+    function toggleParallax() {
+        if (parallaxActive) {
+            disableParallax();
+        } else {
+            enableParallax();
+        }
+    }
+
     return {
         enableParallax,
         disableParallax,
+        toggleParallax,
         animation
     };
 })();

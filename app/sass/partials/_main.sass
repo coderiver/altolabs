@@ -43,6 +43,7 @@
 
 .section
   perspective: 4500px
+  z-index: 0
   &.next
     .section-content
       transform-origin: center top
@@ -52,6 +53,7 @@
       transform-origin: center bottom
       transform: translate3d(0,0,0) rotateX(90deg)
   &.active
+    z-index: 1
     .section-content
       transform: translate3d(0,0,0) rotateX(0)
   +r(900)
