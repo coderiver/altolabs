@@ -252,7 +252,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .char-a { position: absolute; bottom: 0; left: 50%; font-size: 55.9em; margin: 0 0 0 -0.48em; background-repeat: no-repeat; background-position: center; background-size: contain; width: 0.9535em; height: 1em; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
 
-.char-a svg { fill: url(/#a-gradient); }
+.char-a svg { fill: url("#a-gradient"); }
 
 .char-shadow:before { content: ""; position: absolute; z-index: 0; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); background-size: cover; height: 1.3em; width: 1.3em; }
 
