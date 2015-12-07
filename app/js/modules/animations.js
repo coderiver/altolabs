@@ -1,6 +1,4 @@
 import { createHeadingAnimFor, createAboutAnimFor } from './animations-base';
-// import intro from './intro';
-
 
 const $qmedic   = $('.project[data-animations=qmedic]');
 const $milkyway = $('.project[data-animations=milkyway]');
@@ -116,7 +114,6 @@ export const animations = {
     qmedic,
     milkyway,
     rexpro
-    // intro: intro.animation
 };
 
 export function setAnimationsProgress(val = 0) {

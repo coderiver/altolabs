@@ -4,7 +4,9 @@ export default (() => {
     const $intro       = $('.intro');
     const $chars       = $intro.find('.intro__row .char:not(.char-placeholder)');
     const $charsA      = $intro.find('.char-a, .char-a-shadow');
-    const $parallax    = $intro.find('.intro__parallax-layer-1, .intro__parallax-layer-3');
+    const $parallax1    = $intro.find('.intro__parallax-layer-1');
+    const $parallax2    = $intro.find('.intro__parallax-layer-2');
+    const $parallax3    = $intro.find('.intro__parallax-layer-3');
     const $text        = $intro.find('.intro__main-text');
     const $button      = $text.find('.btn');
     const $triangle    = $intro.find('.intro__triangle .svg-icon');
@@ -77,7 +79,6 @@ export default (() => {
     ];
 
     animation
-        .add(toggleParallax)
         .add(
             animProp.map((props, i) => {
                 return TweenMax.to($chars[i], props.duration, {
@@ -120,9 +121,25 @@ export default (() => {
         });
 
     function _rotateLayers(e) {
-        let angle = (e.pageX - window.innerWidth / 2) * 0.008;
-        TweenMax.set($parallax, {
-            rotationY: `${angle}deg`
+        let x = e.pageX - window.innerWidth / 2;
+        let y = e.pageY - window.innerHeight / 2;
+        TweenMax.set($parallax1, {
+            x: -x * 0.01,
+            y: -y * 0.01,
+            rotationY: `${-x * 0.005}deg`,
+            rotationX: `${-y * 0.005}deg`
+        });
+        TweenMax.set($parallax2, {
+            x: -x * 0.02,
+            y: -y * 0.02,
+            rotationY: `${-x * 0.002}deg`,
+            rotationX: `${-y * 0.002}deg`
+        });
+        TweenMax.set($parallax3, {
+            x: -x * 0.03,
+            y: -y * 0.03,
+            rotationY: `${-x * 0.007}deg`,
+            rotationX: `${-y * 0.007}deg`
         });
     }
 
@@ -135,8 +152,11 @@ export default (() => {
     function disableParallax() {
         if (!parallaxActive) return;
         $(document).off('mousemove', _rotateLayers);
-        TweenMax.to($parallax, 1, {
-            rotationY: 0
+        TweenMax.to([$parallax1, $parallax2, $parallax3], 1, {
+            x: 0,
+            y: 0,
+            rotationY: 0,
+            rotationX: 0
         });
         parallaxActive = false;
     }

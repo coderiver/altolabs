@@ -1,37 +1,31 @@
 export default (() => {
-    const $root   = $('#fullpage');
+    const $root   = $('body');
     let disabled  = false;
-    let direction = '';
+    let direction = null;
     let scrollPos = $(window).scrollTop();
+
+    $root.on('wheel', _detectScrollDirection);
+    $root.on('scroll', (e) => {
+        scrollPos = $(window).scrollTop();
+    });
 
     function _preventScroll(e) {
         e.preventDefault();
     }
 
-    $root.on('scroll', (e) => {
-        scrollPos = $(window).scrollTop();
-    });
-
-    function detectScrollDirection(e) {
-        direction = (e.originalEvent.wheelDelta >= 0) ? 'up' : 'down';
+    function _detectScrollDirection(e) {
+        direction = (e.originalEvent.deltaY <= 0) ? 'up' : 'down';
     }
-
-    function mozDetectScrollDirection(e) {
-        direction = (e.originalEvent.detail <= 0) ? 'up' : 'down';
-    }
-
-    $root.on('mousewheel', detectScrollDirection);
-    $root.on('DOMMouseScroll', mozDetectScrollDirection);
 
     function disable() {
         if (disabled) return;
-        $root.on('mousewheel DOMMouseScroll touchmove', _preventScroll);
+        $root.on('wheel', _preventScroll);
         disabled = true;
     }
 
     function enable() {
         if (!disabled) return;
-        $root.off('mousewheel DOMMouseScroll touchmove', _preventScroll);
+        $root.off('wheel', _preventScroll);
         disabled = false;
     }
 

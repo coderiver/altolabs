@@ -103,7 +103,7 @@
     width: 1.0641em
 
   &_2,
-    .svg-icon
+    .char
       margin: 0 em(38,154)
 
 .intro__footer
@@ -126,7 +126,6 @@
   visibility: hidden
   opacity: 0
 
-.char-a-shadow,
 .char-a
   position: absolute
   bottom: 0
@@ -139,21 +138,36 @@
   width: 0.9535em;
   height: 1em;
   +gpu
+  svg
+    fill: url(/#a-gradient)
 
-.char-a-shadow
-  font-size: em(680,10)
-  margin-bottom: em(-69,680)
-  background-image: img-url('svg/char-a-shadow.svg')
+.char-shadow
+  &:before
+    content: ""
+    position: absolute
+    z-index: 0
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+    background-size: cover
+    height: 1.3em
+    width: 1.3em
+  .svg-icon
+    font-size: inherit
+    position: relative
+    z-index: 1
 
-.char-o-shadow
-  width: 1.064em;
-  height: 1em;
-  font-size: em(205,10)
-  margin: em(-32,205) em(14,205)
-  background-repeat: no-repeat
-  background-size: contain
-  background-position: center
-  background-image: img-url('svg/char-o-shadow.svg')
+.char-shadow-a
+  &:before
+    background-image: img-url('char-a-only-shadow.png')
+    height: em(758,559)
+    width: em(733,559)
+
+.char-shadow-o
+  &:before
+    background-image: img-url('char-o-only-shadow.png')
+    height: em(268,154)
+    width: em(277,154)
 
 .scroll-down
   display: inline-block

@@ -2,21 +2,27 @@ import intro                                 from './modules/intro';
 import scroll                                from './modules/scroll-controller';
 import { pubSub, eventsNames }               from './modules/pub-sub';
 import { animations, setAnimationsProgress } from './modules/animations';
+import { pagination }                        from './modules/pagination';
 import activateFullpage                      from './modules/fp';
 
-const EVENTS_LIST   = 'mousewheel DOMMouseScroll touchmove';
-const $root         = $('#fullpage');
-const mq            = window.matchMedia('(min-width: 1024px)');
-let lastSectionName = null;
+const EVENTS_LIST       = 'wheel';
+const $root             = $('body');
+const $paginationsLinks = $('.pagination__link');
+const mq                = window.matchMedia('(min-width: 1024px)');
+let introState          = null; // (swiched between 1 and 2)
+let lastSectionName     = null;
+
 
 // functions
 function disableScroll() {
+    console.log('scroll disable');
     scroll.disable();
     $.fn.fullpage.setAllowScrolling(false);
     $.fn.fullpage.setKeyboardScrolling(false);
 }
 
 function enableScroll() {
+    console.log('scroll enable');
     scroll.enable();
     $.fn.fullpage.setAllowScrolling(true);
     $.fn.fullpage.setKeyboardScrolling(true);
@@ -33,21 +39,13 @@ function windowResizeHandler(e) {
 
 function scrollHandlerWhenOnIntro(e) {
     let direction = scroll.getDirection();
-    let progress  = intro.animation.progress();
 
-    console.log(direction);
     switch (direction) {
     case 'up':
-        if (progress === 1) intro.animation.reverse();
-        disableScroll();
+        pubSub.emit(eventsNames.INTRO_FIRST_STATE);
         break;
     case 'down':
-        if (progress === 1) {
-            enableScroll();
-        } else {
-            intro.animation.play();
-            setTimeout(enableScroll, 500);
-        }
+        pubSub.emit(eventsNames.INTRO_SECOND_STATE);
         break;
     }
 }
@@ -65,20 +63,72 @@ pubSub.on(eventsNames.FP_INIT, (props) => {
     activeSlide.prevAll().addClass('prev');
     activeSlide.nextAll().addClass('next');
 
-    setTimeout(() => {
-        disableScroll();
-        if (intro.animation.progress() < 1) intro.enableParallax();
-    }, 1);
-
     $('.scroll-down').click(() => {
-        $root.trigger('mousewheel');
+        $paginationsLinks.eq(1).trigger('click');
     });
 
     $('.intro__main-text .btn').on('click', $.fn.fullpage.moveSectionDown);
+
+    $('.header__link').on('click', function(e) {
+        e.preventDefault();
+        $paginationsLinks.first().trigger('click');
+    });
+
+    $paginationsLinks.on('click', function(e) {
+        let $this = $(this);
+
+        e.preventDefault();
+
+        switch ($this.index()) {
+        case 0:
+            setTimeout(() => {
+                pubSub.emit(eventsNames.INTRO_FIRST_STATE);
+            }, 100);
+            break;
+        case 1:
+            $.fn.fullpage.moveTo(1);
+            setTimeout(() => {
+                pubSub.emit(eventsNames.INTRO_SECOND_STATE);
+            }, 100);
+            return;
+        }
+
+        $.fn.fullpage.moveTo(this.hash.slice(1));
+    });
+});
+
+pubSub.on(eventsNames.INTRO_FIRST_STATE, () => {
+    let progress = intro.animation.progress();
+
+    setTimeout(() => pagination.toggle(0), 1000);
+
+    if (introState === 1) return;
+    console.log('state 1');
+
+    intro.animation.reverse();
+    intro.enableParallax();
+    setTimeout(disableScroll, 0);
+
+    introState = 1;
+});
+
+pubSub.on(eventsNames.INTRO_SECOND_STATE, () => {
+    let progress = intro.animation.progress();
+
+    setTimeout(() => pagination.toggle(1), 1000);
+
+    if (introState === 2) return;
+    console.log('state 2');
+
+    intro.disableParallax();
+    intro.animation.play();
+    setTimeout(enableScroll, 500);
+
+    introState = 2;
 });
 
 pubSub.on(eventsNames.FP_BEFORE_CHANGE, (props) => {
-    let { slide, direction } = props;
+    let { slide, direction, nextIndex } = props;
 
     slide.prevAll().removeClass('next').addClass('prev');
     slide.nextAll().removeClass('prev').addClass('next');
@@ -100,30 +150,46 @@ pubSub.on(eventsNames.FP_AFTER_CHANGE, (props) => {
 
     slide.removeClass('prev next');
 
-    $('.pagination__link')
-        .removeClass('is-active')
-        .eq(index - 1)
-        .addClass('is-active');
-
     if (mq.matches) {
         if (sectionAnim) sectionAnim.play();
         if (prevSectionAnim) prevSectionAnim.progress(0).pause();
     }
+
+    if (index !== 1) {
+        pagination.toggle(index - 1, true);
+    }
+
     lastSectionName = anchorLink;
 });
 
-pubSub.on(eventsNames.FP_INTRO_FOCUSIN, () => {
+pubSub.on(eventsNames.FP_INTRO_FOCUSIN, (props) => {
+    let { index, prevIndex } = props;
     console.log('focus in');
-    disableScroll();
-    $root.on(EVENTS_LIST, scrollHandlerWhenOnIntro);
+
     $('.links, .pagination').removeClass('is-dark');
+
+    if (mq.matches) {
+        $root.on(EVENTS_LIST, scrollHandlerWhenOnIntro);
+        if (prevIndex === 2) pagination.toggle(1);
+    }
 });
 
-pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, () => {
+pubSub.once(eventsNames.FP_INTRO_FOCUSIN, (props) => {
+    let { prevIndex } = props;
+    if (mq.matches) {
+        if (prevIndex === null) pubSub.emit(eventsNames.INTRO_FIRST_STATE);
+    }
+});
+
+pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
     console.log('focus out');
-    enableScroll();
-    $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
+
     $('.links, .pagination').addClass('is-dark');
+
+    if (mq.matches) {
+        $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
+        pubSub.emit(eventsNames.INTRO_SECOND_STATE);
+    }
 });
 
 

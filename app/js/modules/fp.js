@@ -1,9 +1,11 @@
 import { pubSub, eventsNames } from './pub-sub';
 
 export default function activateFullpage() {
-    const fp         = $('#fullpage');
-    const slides     = fp.find('.section');
-    const slideCount = slides.length;
+    const fp            = $('#fullpage');
+    const slides        = fp.find('.section');
+    const slideCount    = slides.length;
+    let directionBefore = null;
+    let prevIndex       = null;
 
     fp.fullpage({
         verticalCentered: false,
@@ -16,7 +18,8 @@ export default function activateFullpage() {
         navigationPosition: 'right',
         responsiveWidth: 900,
         responsiveHeight: 650,
-        // loopTop: true, // important
+        recordHistory: true,
+        fitToSection: true,
         onLeave: function(index, nextIndex, direction) {
             let props = {
                 slide: this,
@@ -26,17 +29,17 @@ export default function activateFullpage() {
                 slideCount
             };
 
-            pubSub.emit(eventsNames.FP_BEFORE_CHANGE, props);
             if (index === 1) {
-                // if (nextIndex === slideCount) {
-                //     pubSub.emit(eventsNames.FP_LOOP_TOP, props);
-                //     return false;
-                // }
                 pubSub.emit(eventsNames.FP_INTRO_FOCUSOUT, props);
             }
+
+            pubSub.emit(eventsNames.FP_BEFORE_CHANGE, props);
+
+            directionBefore = direction;
+            prevIndex = index;
         },
         afterLoad: function(anchorLink, index) {
-            let props = { slide: this, anchorLink, index };
+            let props = { slide: this, anchorLink, index, prevIndex, directionBefore };
 
             if (index === 1) pubSub.emit(eventsNames.FP_INTRO_FOCUSIN, props);
             pubSub.emit(eventsNames.FP_AFTER_CHANGE, props);
