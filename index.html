@@ -72,6 +72,11 @@
               <circle cx="20" cy="20" r="19"></circle>
             </svg>
           </a>
+          <a class="pagination__link" href="#intro">
+            <svg width="40" height="40">
+              <circle cx="20" cy="20" r="19"></circle>
+            </svg>
+          </a>
           <a class="pagination__link" href="#qmedic">
             <svg width="40" height="40">
               <circle cx="20" cy="20" r="19"></circle>
@@ -96,6 +101,14 @@
         <div class="section">
           <div class="section-content">
             <!-- BEGIN intro -->
+            <svg style="position: absolute; left: -9999px" viewBox="0 0 733 759" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a-gradient">
+                  <stop stop-color="#FF6363" offset="0%"></stop>
+                  <stop stop-color="#F8393A" offset="99.4160555%"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
             <div class="intro">
               <div class="intro__center">
 
@@ -147,8 +160,8 @@
                         <use xlink:href="img/sprite.svg#svg-char_o"></use>
                       </svg>
 
-                      <svg class="svg-icon svg-char_o2 char">
-                        <use xlink:href="img/sprite.svg#svg-char_o2"></use>
+                      <svg class="svg-icon svg-char_o char">
+                        <use xlink:href="img/sprite.svg#svg-char_o"></use>
                       </svg>
 
                       <svg class="svg-icon svg-char_n char">
@@ -160,11 +173,20 @@
 
                   <div class="intro__parallax-layer-2">
 
-                    <svg class="svg-icon svg-back_a char char-a">
-                      <use xlink:href="img/sprite.svg#svg-back_a"></use>
-                    </svg>
+                    <div class="char char-a char-shadow char-shadow-a">
 
-                    <div class="char char-a-shadow"></div>
+                      <svg class="svg-icon svg-back_a">
+                        <use xlink:href="img/sprite.svg#svg-back_a"></use>
+                      </svg>
+
+                    </div>
+                    <div class="char char-a char-shadow char-shadow-a">
+
+                      <svg class="svg-icon svg-back_a">
+                        <use xlink:href="img/sprite.svg#svg-back_a"></use>
+                      </svg>
+
+                    </div>
                   </div>
 
                   <div class="intro__parallax-layer-3">
@@ -174,7 +196,13 @@
                         <use xlink:href="img/sprite.svg#svg-char_s"></use>
                       </svg>
 
-                      <div class="char char-o-shadow"></div>
+                      <div class="char char-shadow char-shadow-o">
+
+                        <svg class="svg-icon svg-char_o">
+                          <use xlink:href="img/sprite.svg#svg-char_o"></use>
+                        </svg>
+
+                      </div>
 
                       <svg class="svg-icon svg-char_o2 char char-placeholder">
                         <use xlink:href="img/sprite.svg#svg-char_o2"></use>
@@ -343,7 +371,7 @@
                 <div class="project__inner">
 
                   <div class="project__figure">
-                    <img class="project__image rex-pro-interface" src="img/ipad.png" alt="Rex Pro Interface">
+                    <img class="project__image rex-pro-interface" src="img/ipad-full.png" alt="Rex Pro Interface">
                   </div>
 
                   <div class="project__about">
