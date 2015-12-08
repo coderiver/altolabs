@@ -329,7 +329,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 @media only screen and (max-width: 900px) { .section { height: auto !important; }
   .section.next .section-content, .section.prev .section-content, .section.active .section-content { -webkit-transform-origin: center top; -ms-transform-origin: center top; transform-origin: center top; -webkit-transform: none; -ms-transform: none; transform: none; } }
 
-.section-content { -webkit-transform-origin: center bottom; -ms-transform-origin: center bottom; transform-origin: center bottom; transition: -webkit-transform 1s ease-out; transition: transform 1s ease-out; transition: transform 1s ease-out, -webkit-transform 1s ease-out; }
+.section-content { -webkit-transform-origin: center bottom; -ms-transform-origin: center bottom; transform-origin: center bottom; transition: -webkit-transform 0.7s ease-out; transition: transform 0.7s ease-out; transition: transform 0.7s ease-out, -webkit-transform 0.7s ease-out; }
 
 .project-container { position: relative; }
 
