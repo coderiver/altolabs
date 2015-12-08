@@ -15,71 +15,71 @@ export default (() => {
     let parallaxActive = false;
 
     // animations properties for each character in words 'coming soon'
-    let halfWindowWidth = 300;
+    const deltaYForChar = 300;
     const animProp = [
         // m
         {
             duration: 0.2,
             delay: 0.4,
-            y: -halfWindowWidth
+            y: -deltaYForChar
         },
         // i
         {
             duration: 0.2,
             delay: 0.5,
-            y: -halfWindowWidth
+            y: -deltaYForChar
         },
         // o
         {
             duration: 0.2,
             delay: 0.4,
-            y: halfWindowWidth
+            y: deltaYForChar
         },
         // c
         {
             duration: 0.4,
             delay: 0,
-            y: -halfWindowWidth
+            y: -deltaYForChar
         },
         // o
         {
             duration: 0.4,
             delay: 0.175,
-            y: -halfWindowWidth
+            y: -deltaYForChar
         },
 
         // n
         {
             duration: 0.25,
             delay: 0.25,
-            y: -halfWindowWidth
+            y: -deltaYForChar
         },
         // g
         {
             duration: 0.3,
             delay: 0.3,
-            y: -halfWindowWidth
+            y: -deltaYForChar
         },
         // s
         {
             duration: 0.4,
             delay: 0.05,
-            y: halfWindowWidth
+            y: deltaYForChar
         },
 
         // o
         {
             duration: 0.35,
             delay: 0.2,
-            y: halfWindowWidth
+            y: deltaYForChar
         },
         // n
         {
             duration: 0.2,
             delay: 0.35,
-            y: halfWindowWidth
+            y: deltaYForChar
         }
-    ]
+    ];
 
     animation
         .add(
@@ -95,11 +95,11 @@ export default (() => {
         .add(() => $intro.toggleClass('is-animated'))
         .add([
             TweenMax.to($charsA[1], 0.5, {
-                x: -700,
+                x: -$(window).width() / 2,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($charsA[0], 0.5, {
-                x: 700,
+                x: $(window).width() / 2,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($triangle, 0.5, {
@@ -174,10 +174,23 @@ export default (() => {
         }
     }
 
+    function toggleIntroTextVisibility() {
+        let opacity = $text[0].style.opacity;
+        let visible = opacity === '1';
+        TweenMax.set($text, {
+            autoAlpha: visible ? 0 : 1
+        });
+        TweenMax.set($button, {
+            opacity: visible ? 0 : 1,
+            y: 0
+        });
+    }
+
     return {
         enableParallax,
         disableParallax,
         toggleParallax,
-        animation
+        animation,
+        toggleIntroTextVisibility
     };
 })();

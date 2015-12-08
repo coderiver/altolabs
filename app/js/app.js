@@ -15,14 +15,13 @@ let lastSectionName     = null;
 
 // functions
 function disableScroll() {
-    console.log('scroll disable');
+    if (!mq.matches) return;
     scroll.disable();
     $.fn.fullpage.setAllowScrolling(false);
     $.fn.fullpage.setKeyboardScrolling(false);
 }
 
 function enableScroll() {
-    console.log('scroll enable');
     scroll.enable();
     $.fn.fullpage.setAllowScrolling(true);
     $.fn.fullpage.setKeyboardScrolling(true);
@@ -32,14 +31,21 @@ function windowResizeHandler(e) {
     let matches = (e.target != null) ? e.target.matches : e.matches;
     if (matches) {
         setAnimationsProgress(0);
+        activateFullpage();
     } else {
+        // complete animations for section on mobile
         setAnimationsProgress(1);
+        intro.animation.progress(0);
+        if (typeof $.fn.fullpage.destroy === 'function') {
+            $.fn.fullpage.destroy('all');
+        }
     }
+    intro.toggleIntroTextVisibility();
 }
 
 function scrollHandlerWhenOnIntro(e) {
     let direction = scroll.getDirection();
-
+    if (!mq.matches) return;
     switch (direction) {
     case 'up':
         pubSub.emit(eventsNames.INTRO_FIRST_STATE);
@@ -63,11 +69,12 @@ pubSub.on(eventsNames.FP_INIT, (props) => {
     activeSlide.prevAll().addClass('prev');
     activeSlide.nextAll().addClass('next');
 
-    $('.scroll-down').click(() => {
+    $('.scroll-down').on('click touchend', (e) => {
+        e.preventDefault();
         $paginationsLinks.eq(1).trigger('click');
     });
 
-    $('.intro__main-text .btn').on('click', $.fn.fullpage.moveSectionDown);
+    $('.intro__main-text .btn').on('click touchend', $.fn.fullpage.moveSectionDown);
 
     $('.header__link').on('click', function(e) {
         e.preventDefault();
@@ -103,7 +110,7 @@ pubSub.on(eventsNames.INTRO_FIRST_STATE, () => {
     setTimeout(() => pagination.toggle(0), 700);
 
     if (introState === 1) return;
-    console.log('state 1');
+    // console.log('state 1');
 
     intro.animation.reverse();
     intro.enableParallax();
@@ -118,7 +125,7 @@ pubSub.on(eventsNames.INTRO_SECOND_STATE, () => {
     setTimeout(() => pagination.toggle(1), 700);
 
     if (introState === 2) return;
-    console.log('state 2');
+    // console.log('state 2');
 
     intro.disableParallax();
     intro.animation.play();
@@ -164,7 +171,7 @@ pubSub.on(eventsNames.FP_AFTER_CHANGE, (props) => {
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSIN, (props) => {
     let { index, prevIndex } = props;
-    console.log('focus in');
+    // console.log('focus in');
 
     $('.links, .pagination').removeClass('is-dark');
 
@@ -178,7 +185,7 @@ pubSub.once(eventsNames.FP_INTRO_FOCUSIN, (props) => {
 });
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
-    console.log('focus out');
+    // console.log('focus out');
 
     $('.links, .pagination').addClass('is-dark');
 
@@ -190,5 +197,5 @@ pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
 
 
 // initial actions
-activateFullpage();
+// activateFullpage();
 windowResizeHandler(mq);

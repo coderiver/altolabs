@@ -47,16 +47,16 @@
   &.next
     .section-content
       transform-origin: center top
-      transform: translate3d(0,0,0) rotateX(-97deg)
+      transform: translate3d(0,0,0) rotateX(-90deg)
   &.prev
     .section-content
       transform-origin: center bottom
-      transform: translate3d(0,0,0) rotateX(97deg)
+      transform: translate3d(0,0,0) rotateX(90deg)
   &.active
     z-index: 1
     .section-content
       transform: translate3d(0,0,0) rotateX(0)
-  +r(900)
+  +r(1023)
     height: auto !important
     &.next,
     &.prev,

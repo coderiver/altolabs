@@ -25,10 +25,18 @@
   transform-origin: center bottom
   +r(1300)
     font-size: 0.76vmin
-  +r(1024)
+  +r(1023)
     padding-top: 60px
+    padding-bottom: 40px
     .intro__footer
       padding-bottom: 20px
+    .scroll-down
+      display: none
+    .intro__main-text
+      position: relative
+      margin-top: percentage(100/1024)
+      .btn
+        display: none
 
 .intro__center
   text-align: center
@@ -68,6 +76,8 @@
     padding: 0 20px
   +r(500)
     margin-top: -3em
+    .h1
+      font-size: 26px
 
 .intro__footer
   position: absolute
