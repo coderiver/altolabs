@@ -4,7 +4,7 @@ export function createHeadingAnimFor(context) {
 
     TweenMax.set(heading, { y: -220, autoAlpha: 0 });
 
-    return TweenMax.to(heading, 0.5, {
+    return TweenMax.to(heading, 0.3, {
         y: 0,
         autoAlpha: 1,
         ease
@@ -21,27 +21,27 @@ export function createAboutAnimFor(context) {
     TweenMax.set([title, line, description, btn], { x: -200, autoAlpha: 0 });
 
     return [
-        TweenMax.to(title, 1.175, {
+        TweenMax.to(title, 0.5, {
             x: 0,
             autoAlpha: 1,
             ease
         }),
-        TweenMax.to(line, 1, {
+        TweenMax.to(line, 0.3, {
             x: 0,
             autoAlpha: 1,
             delay: 0.2,
             ease
         }),
-        TweenMax.to(description, 0.75, {
+        TweenMax.to(description, 0.3, {
             x: 0,
             autoAlpha: 1,
-            delay: 0.75,
+            delay: 0.4,
             ease
         }),
-        TweenMax.to(btn, 0.5, {
+        TweenMax.to(btn, 0.3, {
             x: 0,
             autoAlpha: 1,
-            delay: 1,
+            delay: 0.5,
             ease
         })
     ];

@@ -100,7 +100,7 @@ pubSub.on(eventsNames.FP_INIT, (props) => {
 pubSub.on(eventsNames.INTRO_FIRST_STATE, () => {
     let progress = intro.animation.progress();
 
-    setTimeout(() => pagination.toggle(0), 1000);
+    setTimeout(() => pagination.toggle(0), 700);
 
     if (introState === 1) return;
     console.log('state 1');
@@ -115,7 +115,7 @@ pubSub.on(eventsNames.INTRO_FIRST_STATE, () => {
 pubSub.on(eventsNames.INTRO_SECOND_STATE, () => {
     let progress = intro.animation.progress();
 
-    setTimeout(() => pagination.toggle(1), 1000);
+    setTimeout(() => pagination.toggle(1), 700);
 
     if (introState === 2) return;
     console.log('state 2');

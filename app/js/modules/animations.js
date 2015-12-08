@@ -12,7 +12,7 @@ const ease      = Power1.easeInOut;
 
 qmedic
     .add(createHeadingAnimFor($qmedic))
-    .fromTo($qmedic.find('.project__bg'), 0.5, {
+    .fromTo($qmedic.find('.project__bg'), 0.3, {
         yPercent: 100,
         opacity: 0
     }, {
@@ -20,7 +20,7 @@ qmedic
         opacity: 1,
         ease
     })
-    .fromTo($qmedic.find('.project__image'), 1, {
+    .fromTo($qmedic.find('.project__image'), 0.5, {
         yPercent: 100,
         opacity: 0
     }, {
@@ -28,11 +28,11 @@ qmedic
         opacity: 1,
         ease
     })
-    .add(createAboutAnimFor($qmedic));
+    .add(createAboutAnimFor($qmedic), '-=0.2');
 
 milkyway
     .add(createHeadingAnimFor($milkyway))
-    .fromTo($milkyway.find('.bg-milkyway__layer-2'), 0.5, {
+    .fromTo($milkyway.find('.bg-milkyway__layer-2'), 0.3, {
         yPercent: 100,
         opacity: 0
     }, {
@@ -41,7 +41,7 @@ milkyway
         ease
     })
     .add([
-        TweenMax.fromTo($milkyway.find('.milkyway'), 1, {
+        TweenMax.fromTo($milkyway.find('.milkyway'), 0.6, {
             yPercent: 150,
             opacity: 0
         }, {
@@ -49,13 +49,13 @@ milkyway
             opacity: 1,
             ease
         }),
-        TweenMax.fromTo($milkyway.find('.milkyway__layer-0'), 1, {
+        TweenMax.fromTo($milkyway.find('.milkyway__layer-0'), 0.6, {
             x: 200
         }, {
             x: 0,
             ease
         }),
-        TweenMax.fromTo($milkyway.find('.milkyway__layer-2'), 0.5, {
+        TweenMax.fromTo($milkyway.find('.milkyway__layer-2'), 0.3, {
             x: -200,
             opacity: 0
         }, {
@@ -63,10 +63,11 @@ milkyway
             delay: 0.5,
             opacity: 1,
             ease
-        })
+        }),
+        createAboutAnimFor($milkyway)
     ])
     .add([
-        TweenMax.fromTo($milkyway.find('.bg-milkyway__layer-1'), 0.5, {
+        TweenMax.fromTo($milkyway.find('.bg-milkyway__layer-1'), 0.3, {
             xPercent: 100,
             opacity: 0
         }, {
@@ -74,7 +75,7 @@ milkyway
             opacity: 1,
             ease
         }),
-        TweenMax.fromTo($milkyway.find('.milkyway__layer-1'), 0.5, {
+        TweenMax.fromTo($milkyway.find('.milkyway__layer-1'), 0.3, {
             yPercent: 100,
             opacity: 0
         }, {
@@ -82,32 +83,31 @@ milkyway
             opacity: 1,
             ease
         })
-    ])
-    .add(createAboutAnimFor($milkyway));
+    ], '-=0.1');
 
 rexpro
     .add(createHeadingAnimFor($rexpro))
-    .fromTo($rexpro.find('.bg-rex-pro__layer-2'), 0.5, {
+    .fromTo($rexpro.find('.bg-rex-pro__layer-2'), 0.3, {
         xPercent: -100
     }, {
         xPercent: 0,
         ease
     })
-    .fromTo($rexpro.find('.bg-rex-pro__layer-3'), 0.5, {
+    .fromTo($rexpro.find('.bg-rex-pro__layer-3'), 0.3, {
         opacity: 0
     }, {
         opacity: 1,
         ease
     })
-    .fromTo($rexpro.find('.project__image'), 0.7, {
-        yPercent: 150,
+    .fromTo($rexpro.find('.project__image'), 0.5, {
+        yPercent: 70,
         opacity: 0
     }, {
         yPercent: 0,
         opacity: 1,
         ease
     }, '-=0.3')
-    .add(createAboutAnimFor($rexpro));
+    .add(createAboutAnimFor($rexpro), '-=0.2');
 
 // return all Timelines include Timeline from ./intro.js
 export const animations = {

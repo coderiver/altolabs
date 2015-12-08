@@ -9,14 +9,14 @@ export default function activateFullpage() {
 
     fp.fullpage({
         verticalCentered: false,
-        scrollingSpeed: 1000,
+        scrollingSpeed: 700,
         anchors: [ 'intro', 'qmedic', 'milkyway', 'rexpro' ],
         autoScrolling: true,
         scrollBar: true,
         fixedElements: null,
         navigation: false,
         navigationPosition: 'right',
-        responsiveWidth: 900,
+        responsiveWidth: 1024,
         responsiveHeight: 650,
         recordHistory: true,
         fitToSection: true,
