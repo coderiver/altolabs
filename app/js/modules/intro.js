@@ -124,23 +124,23 @@ export default (() => {
     function _rotateLayers(e) {
         let x = e.pageX - window.innerWidth / 2;
         let y = e.pageY - window.innerHeight / 2;
-        let angleX = -x * 0.008;
-        let angleY = y * 0.008;
+        let angleY = x * 0.008;
+        let angleX = -y * 0.008;
         TweenMax.to($parallaxL1, 0.5, {
+            x: -x * 0.005,
+            y: -y * 0.005,
+            rotationX: `${angleX}deg`,
+            rotationY: `${angleY}deg`
+        });
+        TweenMax.to($parallaxL2, 0.5, {
             x: -x * 0.01,
             y: -y * 0.01,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
-        TweenMax.to($parallaxL2, 0.5, {
+        TweenMax.to($parallaxL3, 0.5, {
             x: -x * 0.02,
             y: -y * 0.02,
-            rotationX: `${angleX}deg`,
-            rotationY: `${angleY}deg`
-        });
-        TweenMax.to($parallaxL3, 0.5, {
-            x: -x * 0.03,
-            y: -y * 0.03,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
@@ -155,7 +155,7 @@ export default (() => {
     function disableParallax() {
         if (!parallaxActive) return;
         $(document).off('mousemove', _rotateLayers);
-        TweenMax.to([$parallaxIn, $parallaxL1, $parallaxL2, $parallaxL3], 1, {
+        TweenMax.to([$parallaxL1, $parallaxL2, $parallaxL3], 1, {
             x: 0,
             y: 0,
             rotationY: 0,
