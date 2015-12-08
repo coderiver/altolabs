@@ -203,8 +203,11 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 @media only screen and (max-width: 1300px) { .intro { font-size: 0.76vmin; } }
 
-@media only screen and (max-width: 1024px) { .intro { padding-top: 60px; }
-  .intro .intro__footer { padding-bottom: 20px; } }
+@media only screen and (max-width: 1023px) { .intro { padding-top: 60px; padding-bottom: 40px; }
+  .intro .intro__footer { padding-bottom: 20px; }
+  .intro .scroll-down { display: none; }
+  .intro .intro__main-text { position: relative; margin-top: 9.76562%; }
+  .intro .intro__main-text .btn { display: none; } }
 
 .intro__center { text-align: center; }
 
@@ -222,7 +225,8 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .intro__main-text .h1 { margin: auto; max-width: 17.8em; padding: 0 20px; }
 
-@media only screen and (max-width: 500px) { .intro__main-text { margin-top: -3em; } }
+@media only screen and (max-width: 500px) { .intro__main-text { margin-top: -3em; }
+  .intro__main-text .h1 { font-size: 26px; } }
 
 .intro__footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding-bottom: 2.60417%; }
 
@@ -318,15 +322,15 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .section { -webkit-perspective: 4500px; perspective: 4500px; z-index: 0; }
 
-.section.next .section-content { -webkit-transform-origin: center top; -ms-transform-origin: center top; transform-origin: center top; -webkit-transform: translate3d(0, 0, 0) rotateX(-97deg); transform: translate3d(0, 0, 0) rotateX(-97deg); }
+.section.next .section-content { -webkit-transform-origin: center top; -ms-transform-origin: center top; transform-origin: center top; -webkit-transform: translate3d(0, 0, 0) rotateX(-90deg); transform: translate3d(0, 0, 0) rotateX(-90deg); }
 
-.section.prev .section-content { -webkit-transform-origin: center bottom; -ms-transform-origin: center bottom; transform-origin: center bottom; -webkit-transform: translate3d(0, 0, 0) rotateX(97deg); transform: translate3d(0, 0, 0) rotateX(97deg); }
+.section.prev .section-content { -webkit-transform-origin: center bottom; -ms-transform-origin: center bottom; transform-origin: center bottom; -webkit-transform: translate3d(0, 0, 0) rotateX(90deg); transform: translate3d(0, 0, 0) rotateX(90deg); }
 
 .section.active { z-index: 1; }
 
 .section.active .section-content { -webkit-transform: translate3d(0, 0, 0) rotateX(0); transform: translate3d(0, 0, 0) rotateX(0); }
 
-@media only screen and (max-width: 900px) { .section { height: auto !important; }
+@media only screen and (max-width: 1023px) { .section { height: auto !important; }
   .section.next .section-content, .section.prev .section-content, .section.active .section-content { -webkit-transform-origin: center top; -ms-transform-origin: center top; transform-origin: center top; -webkit-transform: none; -ms-transform: none; transform: none; } }
 
 .section-content { -webkit-transform-origin: center bottom; -ms-transform-origin: center bottom; transform-origin: center bottom; transition: -webkit-transform 0.7s ease-out; transition: transform 0.7s ease-out; transition: transform 0.7s ease-out, -webkit-transform 0.7s ease-out; }
@@ -445,7 +449,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 @media only screen and (min-width: 1650px) { .pagination { right: 50px; } }
 
-@media only screen and (max-width: 900px) { .pagination { display: none; } }
+@media only screen and (max-width: 1023px) { .pagination { display: none; } }
 
 .pagination__link { display: block; position: relative; width: 40px; height: 40px; box-sizing: border-box; cursor: pointer; color: inherit; text-decoration: none; opacity: 0.5; transition: opacity 0.5s ease; }
 
