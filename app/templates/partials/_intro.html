@@ -3,7 +3,7 @@
     <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a-gradient">
             <stop stop-color="#FF6363" offset="0%"></stop>
-            <stop stop-color="#F8393A" offset="99.4160555%"></stop>
+            <stop stop-color="#F8393A" offset="100%"></stop>
         </linearGradient>
     </defs>
 </svg>
@@ -17,46 +17,63 @@
       {{mixins.svgicon('triangle')}}
     </div>
 
-    <div class="intro__parallax">
-
-      <div class="intro__parallax-layer-1">
-        <div class="intro__row intro__row_1">
-          {{mixins.svgicon('char_c', 'char')}}
-          {{mixins.svgicon('char_o', 'char')}}
-          {{mixins.svgicon('char_m2', 'char')}}
-          {{mixins.svgicon('char_i', 'char')}}
-          {{mixins.svgicon('char_n2', 'char')}}
-          {{mixins.svgicon('char_g', 'char')}}
-        </div>
-        <div class="intro__row intro__row_2">
-          {{mixins.svgicon('char_s', 'char char-placeholder')}}
-          {{mixins.svgicon('char_o', 'char char-placeholder')}}
-          {{mixins.svgicon('char_o', 'char')}}
-          {{mixins.svgicon('char_n', 'char')}}
-        </div>
-      </div>
-
-      <div class="intro__parallax-layer-2">
-        {# {{mixins.svgicon('back_a', 'char char-a')}} #}
-        <div class="char char-a char-shadow char-shadow-a">
-          {{mixins.svgicon('back_a')}}
-        </div>
-        <div class="char char-a char-shadow char-shadow-a">
-          {{mixins.svgicon('back_a')}}
-        </div>
-      </div>
-
-      <div class="intro__parallax-layer-3">
-        <div class="intro__row intro__row_2">
-          {{mixins.svgicon('char_s', 'char')}}
-          <div class="char char-shadow char-shadow-o">
-            {{mixins.svgicon('char_o')}}
+    <div class="parallax">
+      <div class="parallax__inner">
+          <div class="parallax__layer parallax__layer-1">
+            <div class="parallax__row">
+              {{mixins.svgicon('char_c', 'char char-placeholder')}}
+              {{mixins.svgicon('char_o', 'char char-placeholder')}}
+              {{mixins.svgicon('char_m2', 'char')}}
+              {{mixins.svgicon('char_i', 'char')}}
+              {{mixins.svgicon('char_n2', 'char char-placeholder')}}
+              {{mixins.svgicon('char_g', 'char char-placeholder')}}
+            </div>
+            <div class="parallax__row parallax__row_2">
+              {{mixins.svgicon('char_s', 'char char-placeholder')}}
+              {{mixins.svgicon('char_o', 'char char-placeholder')}}
+              {{mixins.svgicon('char_o', 'char')}}
+              {{mixins.svgicon('char_n', 'char char-placeholder')}}
+            </div>
           </div>
-          {{mixins.svgicon('char_o2', 'char char-placeholder')}}
-          {{mixins.svgicon('char_n', 'char char-placeholder')}}
-        </div>
-      </div>
 
+          <div class="parallax__layer parallax__layer-2">
+            <div class="parallax__row">
+              {{mixins.svgicon('char_c', 'char')}}
+              {{mixins.svgicon('char_o', 'char')}}
+              {{mixins.svgicon('char_m2', 'char char-placeholder')}}
+              {{mixins.svgicon('char_i', 'char char-placeholder')}}
+              {{mixins.svgicon('char_n2', 'char')}}
+              {{mixins.svgicon('char_g', 'char')}}
+            </div>
+             <div class="parallax__row parallax__row_2">
+              {{mixins.svgicon('char_s', 'char char-placeholder')}}
+            </div>
+          </div>
+
+          <div class="parallax__layer parallax__layer-static">
+            {# {{mixins.svgicon('back_a', 'char char-a')}} #}
+            <div class="char char-a char-shadow char-shadow-a">
+              {{mixins.svgicon('back_a')}}
+            </div>
+            <div class="char char-a char-shadow char-shadow-a">
+              {{mixins.svgicon('back_a')}}
+            </div>
+          </div>
+
+          <div class="parallax__layer parallax__layer-3">
+            <div class="parallax__row">
+              {{mixins.svgicon('char_c', 'char char-placeholder')}}
+            </div>
+            <div class="parallax__row parallax__row_2">
+              {{mixins.svgicon('char_s', 'char')}}
+              <div class="char char-shadow char-shadow-o">
+                {{mixins.svgicon('char_o')}}
+              </div>
+              {{mixins.svgicon('char_o2', 'char char-placeholder')}}
+              {{mixins.svgicon('char_n', 'char')}}
+            </div>
+          </div>
+      </div>
     </div>
 
     <div class="intro__main-text">

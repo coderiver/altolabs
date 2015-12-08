@@ -168,17 +168,13 @@ pubSub.on(eventsNames.FP_INTRO_FOCUSIN, (props) => {
 
     $('.links, .pagination').removeClass('is-dark');
 
-    if (mq.matches) {
-        $root.on(EVENTS_LIST, scrollHandlerWhenOnIntro);
-        if (prevIndex === 2) pagination.toggle(1);
-    }
+    $root.on(EVENTS_LIST, scrollHandlerWhenOnIntro);
+    if (prevIndex === 2) pagination.toggle(1);
 });
 
 pubSub.once(eventsNames.FP_INTRO_FOCUSIN, (props) => {
     let { prevIndex } = props;
-    if (mq.matches) {
-        if (prevIndex === null) pubSub.emit(eventsNames.INTRO_FIRST_STATE);
-    }
+    if (prevIndex === null) pubSub.emit(eventsNames.INTRO_FIRST_STATE);
 });
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
@@ -186,8 +182,8 @@ pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
 
     $('.links, .pagination').addClass('is-dark');
 
+    $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
     if (mq.matches) {
-        $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
         pubSub.emit(eventsNames.INTRO_SECOND_STATE);
     }
 });

@@ -2,11 +2,12 @@ import { pubSub, eventsNames } from './pub-sub';
 
 export default (() => {
     const $intro       = $('.intro');
-    const $chars       = $intro.find('.intro__row .char:not(.char-placeholder)');
+    const $chars       = $intro.find('.parallax__row .char:not(.char-placeholder)');
     const $charsA      = $intro.find('.char-a, .char-a-shadow');
-    const $parallax1    = $intro.find('.intro__parallax-layer-1');
-    const $parallax2    = $intro.find('.intro__parallax-layer-2');
-    const $parallax3    = $intro.find('.intro__parallax-layer-3');
+    const $parallaxIn  = $intro.find('.parallax__inner');
+    const $parallaxL1  = $intro.find('.parallax__layer-1');
+    const $parallaxL2  = $intro.find('.parallax__layer-2');
+    const $parallaxL3  = $intro.find('.parallax__layer-3');
     const $text        = $intro.find('.intro__main-text');
     const $button      = $text.find('.btn');
     const $triangle    = $intro.find('.intro__triangle .svg-icon');
@@ -123,23 +124,25 @@ export default (() => {
     function _rotateLayers(e) {
         let x = e.pageX - window.innerWidth / 2;
         let y = e.pageY - window.innerHeight / 2;
-        TweenMax.set($parallax1, {
+        let angleX = -x * 0.008;
+        let angleY = y * 0.008;
+        TweenMax.to($parallaxL1, 0.5, {
             x: -x * 0.01,
             y: -y * 0.01,
-            rotationY: `${-x * 0.005}deg`,
-            rotationX: `${-y * 0.005}deg`
+            rotationX: `${angleX}deg`,
+            rotationY: `${angleY}deg`
         });
-        TweenMax.set($parallax2, {
+        TweenMax.to($parallaxL2, 0.5, {
             x: -x * 0.02,
             y: -y * 0.02,
-            rotationY: `${-x * 0.002}deg`,
-            rotationX: `${-y * 0.002}deg`
+            rotationX: `${angleX}deg`,
+            rotationY: `${angleY}deg`
         });
-        TweenMax.set($parallax3, {
+        TweenMax.to($parallaxL3, 0.5, {
             x: -x * 0.03,
             y: -y * 0.03,
-            rotationY: `${-x * 0.007}deg`,
-            rotationX: `${-y * 0.007}deg`
+            rotationX: `${angleX}deg`,
+            rotationY: `${angleY}deg`
         });
     }
 
@@ -152,7 +155,7 @@ export default (() => {
     function disableParallax() {
         if (!parallaxActive) return;
         $(document).off('mousemove', _rotateLayers);
-        TweenMax.to([$parallax1, $parallax2, $parallax3], 1, {
+        TweenMax.to([$parallaxIn, $parallaxL1, $parallaxL2, $parallaxL3], 1, {
             x: 0,
             y: 0,
             rotationY: 0,
