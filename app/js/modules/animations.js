@@ -8,7 +8,7 @@ const qmedic    = new TimelineMax({ paused: true });
 const milkyway  = new TimelineMax({ paused: true });
 const rexpro    = new TimelineMax({ paused: true });
 
-const ease      = Power1.easeInOut;
+const ease      = Power2.easeOut;
 
 qmedic
     .add(createHeadingAnimFor($qmedic))
@@ -87,7 +87,7 @@ milkyway
 
 rexpro
     .add(createHeadingAnimFor($rexpro))
-    .fromTo($rexpro.find('.bg-rex-pro__layer-2'), 0.3, {
+    .fromTo($rexpro.find('.bg-rex-pro__layer-2'), 0.4, {
         xPercent: -100
     }, {
         xPercent: 0,

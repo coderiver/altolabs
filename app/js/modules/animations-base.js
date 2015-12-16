@@ -16,32 +16,32 @@ export function createAboutAnimFor(context) {
     let line        = context.find('.project__about-line');
     let description = context.find('.project__description');
     let btn         = context.find('.project__about .btn');
-    let ease        = Power1.easeInOut;
+    let ease        = Power3.easeOut;
 
     TweenMax.set([title, line, description, btn], { x: -200, autoAlpha: 0 });
 
     return [
-        TweenMax.to(title, 0.5, {
+        TweenMax.to(title, 0.8, {
             x: 0,
             autoAlpha: 1,
             ease
         }),
-        TweenMax.to(line, 0.3, {
+        TweenMax.to(line, 0.8, {
             x: 0,
             autoAlpha: 1,
-            delay: 0.2,
+            delay: 0.25,
             ease
         }),
-        TweenMax.to(description, 0.3, {
-            x: 0,
-            autoAlpha: 1,
-            delay: 0.4,
-            ease
-        }),
-        TweenMax.to(btn, 0.3, {
+        TweenMax.to(description, 0.8, {
             x: 0,
             autoAlpha: 1,
             delay: 0.5,
+            ease
+        }),
+        TweenMax.to(btn, 0.8, {
+            x: 0,
+            autoAlpha: 1,
+            delay: 0.6,
             ease
         })
     ];
