@@ -12,7 +12,7 @@ export default function activateFullpage() {
         scrollingSpeed: 700,
         anchors: [ 'intro', 'qmedic', 'milkyway', 'rexpro' ],
         autoScrolling: true,
-        scrollBar: true,
+        scrollBar: false,
         fixedElements: null,
         navigation: false,
         navigationPosition: 'right',
@@ -20,6 +20,7 @@ export default function activateFullpage() {
         responsiveHeight: 650,
         recordHistory: true,
         fitToSection: true,
+        easingcss3: 'cubic-bezier(0.770, 0.000, 0.175, 1.000)',
         onLeave: function(index, nextIndex, direction) {
             let props = {
                 slide: this,
