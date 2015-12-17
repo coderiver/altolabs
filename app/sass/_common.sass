@@ -105,18 +105,34 @@ body
     height: 1px
     bottom: auto
     right: 1px
+    width: 0
+    transition: width .6s linear 1s
+    .is-animated &
+      width: 100% 
   .bottom
     height: 1px
     top: auto
     left: 1px
+    left: 270px 
+    transition: left .6s linear 1s
+    .is-animated &
+      left: 1px 
   .left
     top: 1px
     width: 1px
     right: auto
+    top: 70px 
+    transition: top .6s linear 1s
+    .is-animated &
+      top: 1px 
   .right
     width: 1px
     left: auto
     bottom: 1px
+    height: 0px 
+    transition: height .6s linear 1s
+    .is-animated &
+      height: 100% 
   .top
     &:before
       transform: translate3d(-100%,0,0)
