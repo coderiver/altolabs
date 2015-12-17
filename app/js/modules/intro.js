@@ -126,23 +126,23 @@ export default (() => {
     function _rotateLayers(e) {
         let x = e.pageX - window.innerWidth / 2;
         let y = e.pageY - window.innerHeight / 2;
-        let angleY = x * 0.008;
-        let angleX = -y * 0.008;
+        let angleY = -x * 0.008;
+        let angleX = y * 0.008;
         TweenMax.to($parallaxL1, 0.5, {
-            x: -x * 0.012,
-            y: -y * 0.012,
+            x: x * 0.005,
+            y: y * 0.005,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
         TweenMax.to($parallaxL2, 0.5, {
-            x: -x * 0.005,
-            y: -y * 0.005,
+            x: -x * 0.01,
+            y: -y * 0.01,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
         TweenMax.to($parallaxL3, 0.5, {
-            x: -x * 0.02,
-            y: -y * 0.02,
+            x: -x * 0.025,
+            y: -y * 0.025,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
