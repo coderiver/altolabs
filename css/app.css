@@ -94,6 +94,22 @@ body { font-family: 'montserrat-regular', Helvetica, Arial, sans-serif; font-siz
 
 .btn__border .left:before { -webkit-transform: translate3d(0, 100%, 0); transform: translate3d(0, 100%, 0); }
 
+.intro .btn__border .top { width: 0; transition: width .6s linear 1s; }
+
+.intro .btn__border .bottom { left: 270px; transition: left .6s linear 1s; }
+
+.intro .btn__border .left { top: 70px; transition: top .6s linear 1s; }
+
+.intro .btn__border .right { height: 0px; transition: height .6s linear 1s; }
+
+.intro.is-animated .btn__border .top { width: 100%; }
+
+.intro.is-animated .btn__border .bottom { left: 1px; }
+
+.intro.is-animated .btn__border .left { top: 1px; }
+
+.intro.is-animated .btn__border .right { height: 100%; }
+
 .svg-back_a { width: 0.9534883720930233em; height: 1em; fill: #E46363; }
 
 .svg-behance { width: 1em; height: 1em; fill: #4A4A4A; }
@@ -230,7 +246,7 @@ html.fp-enabled, .fp-enabled body { margin: 0; padding: 0; overflow: hidden; /*A
 
 .intro__footer { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding-bottom: 2.60417%; }
 
-.parallax { position: relative; -webkit-perspective: 1000px; perspective: 1000px; }
+.parallax { position: relative; -webkit-perspective: 600px; perspective: 600px; }
 
 .parallax__layer { position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 12em; }
 
