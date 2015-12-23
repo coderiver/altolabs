@@ -20,9 +20,9 @@
 </button>
 {% endmacro %}
 
-{% macro btnLink(text, className, href) %}
+{% macro btnLink(text, className, href, target) %}
 <a href="{% if href %}{{href}}{% else %}#{% endif %}"
-  class="btn{% if className %} {{className}}{% endif %}">
+  class="btn{% if className %} {{className}}{% endif %}" {% if target %} {% else %}target="_blank"{% endif %}>
   {{_btnInner(text)}}
 </a>
 {% endmacro %}
