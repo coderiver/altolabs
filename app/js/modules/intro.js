@@ -8,10 +8,12 @@ export default (() => {
     const $parallaxL1  = $intro.find('.parallax__layer-1');
     const $parallaxL2  = $intro.find('.parallax__layer-2');
     const $parallaxL3  = $intro.find('.parallax__layer-3');
+    const $parallaxSt  = $intro.find('.parallax__layer-static');
     const $text        = $intro.find('.intro__main-text');
     const $button      = $text.find('.btn');
     const $triangle    = $intro.find('.intro__triangle .svg-icon');
     const animation    = new TimelineMax({ paused: true });
+    const isSafari     = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     let parallaxActive = false;
 
     // animations properties for each character in words 'coming soon'
@@ -124,28 +126,37 @@ export default (() => {
         });
 
     function _rotateLayers(e) {
-        let x = e.pageX - window.innerWidth / 2;
-        let y = e.pageY - window.innerHeight / 2;
+        let x      = e.pageX - window.innerWidth / 2;
+        let y      = e.pageY - window.innerHeight / 2;
         let angleY = -x * 0.008;
         let angleX = y * 0.008;
-        TweenMax.to($parallaxL1, 0.5, {
+        let dur    = 0.5;
+        TweenMax.to($parallaxL1, dur, {
             x: x * 0.005,
             y: y * 0.005,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
-        TweenMax.to($parallaxL2, 0.5, {
+        TweenMax.to($parallaxL2, dur, {
             x: -x * 0.01,
             y: -y * 0.01,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
-        TweenMax.to($parallaxL3, 0.5, {
+        TweenMax.to($parallaxL3, dur, {
             x: -x * 0.025,
             y: -y * 0.025,
             rotationX: `${angleX}deg`,
             rotationY: `${angleY}deg`
         });
+        if (isSafari) {
+            TweenMax.to($parallaxSt, dur, {
+                x: -x * 0.015,
+                y: -y * 0.015,
+                rotationX: `${angleX}deg`,
+                rotationY: `${angleY}deg`
+            });
+        }
     }
 
     function enableParallax() {
@@ -163,6 +174,14 @@ export default (() => {
             rotationY: 0,
             rotationX: 0
         });
+        if (isSafari) {
+            TweenMax.to($parallaxSt, 0.5, {
+                x: 0,
+                y: 0,
+                rotationY: 0,
+                rotationX: 0
+            });
+        }
         parallaxActive = false;
     }
 
