@@ -1,3 +1,5 @@
+$project-inner-width: percentage(1420/1800)
+
 .project-container
   position: relative
 
@@ -31,6 +33,10 @@
     .project__about-line
       margin-left: auto
       margin-right: auto
+  +rh(800)
+    padding-top: 70px
+    .project__heading
+      top: 70px
   +r(1024)
     padding-top: 70px
     .project__heading
@@ -41,13 +47,15 @@
     width: 55%
 
 .project__inner
-  width: 100%
+  width: $project-inner-width
   max-width: 1420px
   box-sizing: border-box
   margin: 160px 0 120px
   position: relative
   z-index: 0
   +clr
+  +r(1023)
+    width: auto
 
 .project__heading
   position: absolute
@@ -100,6 +108,12 @@
   position: relative
   z-index: 0
   box-sizing: border-box
+  +rh(800)
+    +rmin(1024)
+      font-size: 12px
+      .h3
+        font-size: 20px
+
 
 .project__about-line
   width: 58px
@@ -135,40 +149,34 @@
 
 .bg-milkyway
   background: white
+  width: $project-inner-width
+  left: 0
+  right: 0
+  margin: auto
+  overflow: visible
   &__layer-1
     position: absolute
-    bottom: percentage(34/1080)
-    // left: percentage(82/1920)
-    // max-width: 430px
-    width: 430px
-    height: 567px
-    // width: percentage(430/1920)
+    top: 50%
+    width: percentage(430/1420)
     background: img-url('milkyway-bg-layer-1.jpg') no-repeat center
     background-size: cover
-    // &:before
-    //   content: ""
-    //   display: block
-    //   padding-bottom: percentage(567/430)
-    // +rmin(1650)
-    left: 50%
-    margin-left: -890px
+    left: percentage(-115/1420)
+    &:before
+      content: ""
+      display: block
+      padding-bottom: percentage(567/430)
 
   &__layer-2
     position: absolute
     top: 0
-    // left: percentage(300/1920)
     max-width: 588px
-    width: 588px
-    // width: percentage(588/1920)
+    width: percentage(588/1420)
     height: 100%
     background: img-url('milkyway-bg-layer-2.jpg') no-repeat center
     background-size: cover
-    // +rmin(1650)
-    left: 50%
-    margin-left: -655px
+    left: percentage(100/1420)
 
 .bg-rex-pro
-  // background: white img-url('svg/rex-pro-bg.svg') no-repeat center bottom
   background-size: 100% auto
   top: auto
   overflow: hidden
@@ -208,6 +216,7 @@ $milkyway-width: 683
 $milkyway-height: 544
 .milkyway
   position: absolute
+  top: 0
   left: 0
   width: 100%
   max-width: $milkyway-width + px
