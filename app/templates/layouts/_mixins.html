@@ -20,15 +20,15 @@
 </button>
 {% endmacro %}
 
-{% macro btnLink(text, className, href) %}
+{% macro btnLink(text, className, href, target) %}
 <a href="{% if href %}{{href}}{% else %}#{% endif %}"
-  class="btn{% if className %} {{className}}{% endif %}">
+  class="btn{% if className %} {{className}}{% endif %}" {% if target %} {% else %}target="_blank"{% endif %}>
   {{_btnInner(text)}}
 </a>
 {% endmacro %}
 
 {% macro pagiCircle() %}
-<svg width="32" height="32">
-  <circle cx="16" cy="16" r="15"></circle>
+<svg width="28" height="28">
+  <circle cx="14" cy="14" r="13"></circle>
 </svg>
 {% endmacro %}

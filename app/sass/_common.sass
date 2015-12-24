@@ -79,6 +79,16 @@ body
   height: 70px
   line-height: 70px
   +f(r, 16, 250)
+  // +rmin(1500)
+  height: 57px 
+  line-height: 58px
+  letter-spacing: 0.25em  
+  font-size: 13px 
+  &.is-inactive
+    opacity: .4
+    cursor: default 
+    pointer-events: none
+    color:#777 
   &_light
     color: #FFF
     .btn__border
@@ -87,7 +97,7 @@ body
         &:before
           background: white
   &_font-sm
-    font-size: 14px
+    font-size: 13px
   &:hover
     .btn__border
       > span
