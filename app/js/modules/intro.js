@@ -97,11 +97,11 @@ export default (() => {
         .add(() => $intro.toggleClass('is-animated'))
         .add([
             TweenMax.to($charsA[1], 0.5, {
-                x: -$(window).width() / 2,
+                x: -window.innerWidth / 2,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($charsA[0], 0.5, {
-                x: $(window).width() / 2,
+                x: window.innerWidth / 2,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($triangle, 0.5, {

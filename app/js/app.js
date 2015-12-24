@@ -110,7 +110,6 @@ pubSub.on(eventsNames.INTRO_FIRST_STATE, () => {
     setTimeout(() => pagination.toggle(0), 700);
 
     if (introState === 1) return;
-    // console.log('state 1');
 
     intro.animation.reverse();
     intro.enableParallax();
@@ -125,7 +124,6 @@ pubSub.on(eventsNames.INTRO_SECOND_STATE, () => {
     setTimeout(() => pagination.toggle(1), 700);
 
     if (introState === 2) return;
-    // console.log('state 2');
 
     intro.disableParallax();
     intro.animation.play();
@@ -171,7 +169,6 @@ pubSub.on(eventsNames.FP_AFTER_CHANGE, (props) => {
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSIN, (props) => {
     let { index, prevIndex } = props;
-    // console.log('focus in');
 
     $('.links, .pagination').removeClass('is-dark');
 
@@ -185,8 +182,6 @@ pubSub.once(eventsNames.FP_INTRO_FOCUSIN, (props) => {
 });
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
-    // console.log('focus out');
-
     $('.links, .pagination').addClass('is-dark');
 
     $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
@@ -197,5 +192,7 @@ pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
 
 
 // initial actions
-// activateFullpage();
+$(document).ready(function() {
+    $('body').addClass('in');
+});
 windowResizeHandler(mq);

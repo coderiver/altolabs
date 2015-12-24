@@ -4,6 +4,24 @@ body
   +font-smoothing
   background: black
   color: #FFF
+  &.fade
+    .intro__center,
+    .intro__footer,
+    .header,
+    .pagination
+      transition: opacity 1s linear
+      opacity: 0
+    .intro__footer,
+    .header,
+    .pagination,
+      transition-delay: 0.5s
+      transition-delay: 0.5s
+    &.in
+      .intro__center,
+      .intro__footer,
+      .header,
+      .pagination
+        opacity: 1
 
 .out
   overflow: hidden
