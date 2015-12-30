@@ -17,7 +17,7 @@ export default function activateFullpage() {
         navigation: false,
         navigationPosition: 'right',
         responsiveWidth: 1024,
-        responsiveHeight: 650,
+        // responsiveHeight: 650,
         recordHistory: true,
         fitToSection: true,
         easingcss3: 'cubic-bezier(0.770, 0.000, 0.175, 1.000)',

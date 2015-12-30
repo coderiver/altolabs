@@ -37,10 +37,6 @@ $project-inner-width: percentage(1420/1800)
     padding-top: 70px
     .project__heading
       top: 70px
-  +r(1024)
-    padding-top: 70px
-    .project__heading
-      top: 70px
 
 .project-milkyway
   .project__figure
@@ -122,6 +118,8 @@ $project-inner-width: percentage(1420/1800)
   background: #00c6ca
   &_dark
     background: black
+  &_lighter
+    background: #93DDCC
 
 .project__description
   margin: 30px 0 40px
@@ -146,6 +144,10 @@ $project-inner-width: percentage(1420/1800)
     content: ""
     display: block
     padding-bottom: percentage(639/1920)
+  +r(600)
+    background-size: cover
+    &:before
+      padding-bottom: 58%
 
 .bg-milkyway
   background: white
@@ -210,6 +212,9 @@ $project-inner-width: percentage(1420/1800)
       padding-bottom: percentage(215/1942)
       background: img-url('svg/rex-pro-bg-layer-2.svg') no-repeat right center
       background-size: contain
+  +r(600)
+    &:before
+      padding-bottom: 70%
 
 
 $milkyway-width: 683
@@ -278,12 +283,14 @@ $milkyway-height: 544
   +r(1023)
     display: block
     min-height: 0
-    padding: 100px 15px 60px
+    padding: 60px 15px
     .project__heading
       position: relative
       top: auto
       left: auto
       right: auto
+      .h4
+        margin-top: 7px
 
     .project__inner
       margin: 40px 0 0
@@ -306,6 +313,8 @@ $milkyway-height: 544
 
     .project__description
       padding: 0
+      font-size: 15px
+      line-height: 1.8
 
     .project__image
       position: static

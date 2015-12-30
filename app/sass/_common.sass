@@ -22,6 +22,26 @@ body
       .header,
       .pagination
         opacity: 1
+  &.mobile
+    .section
+      z-index: 1
+    .section-intro
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      z-index: 0
+      + .section
+        box-shadow: 0 -10px 10px 0 rgba(black, 0.3)
+    #fullpage
+      padding-top: 100vh
+      transform: none !important
+    .header
+      background: rgba(black, 0.8)
+    .parallax__layer,
+    .char
+      transform: none !important
+      opacity: initial !important
 
 .out
   overflow: hidden
@@ -79,16 +99,15 @@ body
   height: 70px
   line-height: 70px
   +f(r, 16, 250)
-  // +rmin(1500)
-  height: 57px 
+  height: 57px
   line-height: 58px
-  letter-spacing: 0.25em  
-  font-size: 13px 
+  letter-spacing: 0.25em
+  font-size: 13px
   &.is-inactive
     opacity: .4
-    cursor: default 
+    cursor: default
     pointer-events: none
-    color:#777 
+    color:#777
   &_light
     color: #FFF
     .btn__border
@@ -152,16 +171,16 @@ body
     bottom: 1px
   .top
     &:before
-      transform: translate3d(-100%,0,0)
+      transform: translate3d(-101%,0,0)
   .bottom
     &:before
-      transform: translate3d(100%,0,0)
+      transform: translate3d(101%,0,0)
   .right
     &:before
-      transform: translate3d(0,-100%,0)
+      transform: translate3d(0,-101%,0)
   .left
     &:before
-      transform: translate3d(0,100%,0)
+      transform: translate3d(0,101%,0)
 
 .intro
   .btn__border
@@ -181,9 +200,11 @@ body
     .btn__border
       .top
         width: 100%
+        width: calc(100% - 1px)
       .bottom
         left: 1px
       .left
         top: 1px
       .right
         height: 100%
+        height: calc(100% - 1px)

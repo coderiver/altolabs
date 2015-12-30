@@ -40,6 +40,7 @@
 
 .intro__center
   text-align: center
+  user-select: none
 
 .intro__links
   position: absolute
@@ -73,11 +74,20 @@
   .h1
     margin: auto
     max-width: em(890, 50)
-    padding: 0 20px
+    padding: 0 15px
+  +rmin(500)
+    .h1
+      br
+        display: none
   +r(500)
     margin-top: -3em
     .h1
-      font-size: 26px
+      font-size: 24px
+  +r(350)
+    .h1
+      font-size: 20px
+      padding-left: 0
+      padding-right: 0
 
 .intro__footer
   position: absolute
@@ -90,6 +100,8 @@
 
 .parallax
   position: relative
+
+.parallax__inner
   perspective: 600px
 
 .parallax__layer
@@ -155,8 +167,8 @@
   background-repeat: no-repeat
   background-position: center
   background-size: contain
-  width: 0.9535em;
-  height: 1em;
+  width: 0.9535em
+  height: 1em
   +gpu
   svg
     fill: url('/#a-gradient')
@@ -208,6 +220,9 @@
     .scroll-down__text,
     .scroll-down__alt-text
       transform: translate3d(0,10px,0)
+  +rh(750)
+    .svg-icon
+      font-size: 38px
   .intro.is-animated &
     .scroll-down__text
       opacity: 0
