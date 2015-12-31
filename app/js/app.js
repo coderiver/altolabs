@@ -13,12 +13,10 @@ const $paginationsLinks = $('.pagination__link');
 const mq                = window.matchMedia('(min-width: 1024px)');
 let introState          = null; // (swiched between 1 and 2)
 let lastSectionName     = null;
-let wheeling            = null;
-let flag                = 0;
-
 
 // functions
 function disableScroll() {
+    console.log('native scroll OFF');
     if (!mq.matches) return;
     scroll.disable();
     $.fn.fullpage.setAllowScrolling(false);
@@ -26,6 +24,7 @@ function disableScroll() {
 }
 
 function enableScroll() {
+    console.log('native scroll ON');
     scroll.enable();
     $.fn.fullpage.setAllowScrolling(true);
     $.fn.fullpage.setKeyboardScrolling(true);
@@ -41,7 +40,7 @@ function windowResizeHandler(e) {
         // complete animations for section on mobile
         $root.addClass('mobile');
         setAnimationsProgress(1);
-        intro.animation.progress(0);
+        intro.animation.progress(0).pause();
         intro.disableParallax();
         scroll.enable();
         if (typeof $.fn.fullpage.destroy === 'function') {
@@ -52,44 +51,19 @@ function windowResizeHandler(e) {
     intro.toggleIntroTextVisibility();
 }
 
-// const scrollHandlerWhenOnIntro = throttle((e) => {
-//     let direction = scroll.getDirection();
-//
-//     if (!mq.matches) return;
-//     switch (direction) {
-//     case 'up':
-//         pubSub.emit(eventsNames.INTRO_FIRST_STATE);
-//         break;
-//     case 'down':
-//         pubSub.emit(eventsNames.INTRO_SECOND_STATE);
-//         break;
-//     }
-// }, 200, {trailing: false});
-
 function scrollHandlerWhenOnIntro(e) {
-    console.log(flag);
-    if (flag) console.log('not going anywhere');
-    if (flag) return;
-    flag = 1;
     let direction = scroll.getDirection();
 
     if (!mq.matches) return;
 
-
-
-    clearTimeout(wheeling);
-    wheeling = setTimeout(() => {
-        console.log('end scroll');
-        flag = 0;
-    }, 1000);
-
     switch (direction) {
-      case 'up':
-          pubSub.emit(eventsNames.INTRO_FIRST_STATE);
-          break;
-      case 'down':
-          pubSub.emit(eventsNames.INTRO_SECOND_STATE);
-          break;
+    case 'up':
+        pubSub.emit(eventsNames.INTRO_FIRST_STATE);
+        break;
+    case 'down':
+        if (introState === 2) $.fn.fullpage.moveSectionDown();
+        pubSub.emit(eventsNames.INTRO_SECOND_STATE);
+        break;
     }
 }
 
@@ -149,7 +123,6 @@ pubSub.on(eventsNames.INTRO_FIRST_STATE, () => {
 
     intro.animation.reverse();
     intro.enableParallax();
-    setTimeout(disableScroll, 0);
 
     introState = 1;
 });
@@ -163,7 +136,6 @@ pubSub.on(eventsNames.INTRO_SECOND_STATE, () => {
 
     intro.disableParallax();
     intro.animation.play();
-    setTimeout(enableScroll, 2500);
 
     introState = 2;
 });
@@ -208,7 +180,8 @@ pubSub.on(eventsNames.FP_INTRO_FOCUSIN, (props) => {
 
     $('.links, .pagination').removeClass('is-dark');
 
-    $root.on(EVENTS_LIST, scrollHandlerWhenOnIntro);
+    setTimeout(disableScroll, 0);
+    pubSub.on(eventsNames.WHEEL_START, scrollHandlerWhenOnIntro);
     if (prevIndex === 2) pagination.toggle(1);
 });
 
@@ -220,12 +193,12 @@ pubSub.once(eventsNames.FP_INTRO_FOCUSIN, (props) => {
 pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
     $('.links, .pagination').addClass('is-dark');
 
-    $root.off(EVENTS_LIST, scrollHandlerWhenOnIntro);
+    pubSub.removeListener(eventsNames.WHEEL_START, scrollHandlerWhenOnIntro);
+    enableScroll();
     if (mq.matches) {
         pubSub.emit(eventsNames.INTRO_SECOND_STATE);
     }
 });
-
 
 // initial actions
 $(document).ready(function() {
