@@ -15,6 +15,7 @@ export default (() => {
     const animation    = new TimelineMax({ paused: true });
     const isSafari     = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     let parallaxActive = false;
+    let allowParallax  = false;
 
     // animations properties for each character in words 'coming soon'
     const deltaYForChar = 300;
@@ -125,12 +126,24 @@ export default (() => {
             pubSub.emit(eventsNames.INTRO_END_ANIMATIONS, { animation });
         });
 
-    function _rotateLayers(e) {
-        let x      = e.pageX - window.innerWidth / 2;
-        let y      = e.pageY - window.innerHeight / 2;
-        let angleY = -x * 0.008;
-        let angleX = y * 0.008;
-        let dur    = 0.5;
+
+    function _rotateLayers(e, posY = 0) {
+        var pageX, pageY, x, y, angleX, angleY, dur;
+
+        if (typeof e === 'object') {
+            pageX = e.pageX;
+            pageY = e.pageY;
+        } else {
+            pageX = e;
+            pageY = posY;
+        }
+
+        x = pageX - window.innerWidth / 2;
+        y = pageY - window.innerHeight / 2;
+        angleY = -x * 0.008;
+        angleX = y * 0.008;
+        dur    = 0.5;
+
         TweenMax.to($parallaxL1, dur, {
             x: x * 0.005,
             y: y * 0.005,
@@ -160,7 +173,7 @@ export default (() => {
     }
 
     function enableParallax() {
-        if (parallaxActive) return;
+        if (!allowParallax || parallaxActive) return;
         $(document).on('mousemove', _rotateLayers);
         parallaxActive = true;
     }
@@ -193,6 +206,24 @@ export default (() => {
         }
     }
 
+    function demonstarateParallax(makeAllowOnly) {
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+
+        if (makeAllowOnly) {
+            allowParallax = true;
+            return;
+        }
+
+        _rotateLayers(0, 0);
+        setTimeout(() => _rotateLayers(width, height), 500);
+        setTimeout(() => _rotateLayers(width / 2, height / 2), 1000);
+        setTimeout(() => {
+            allowParallax = true;
+            enableParallax();
+        }, 1500);
+    }
+
     function toggleIntroTextVisibility() {
         let opacity = $text[0].style.opacity;
         let visible = opacity === '1';
@@ -210,6 +241,7 @@ export default (() => {
         disableParallax,
         toggleParallax,
         animation,
-        toggleIntroTextVisibility
+        toggleIntroTextVisibility,
+        demonstarateParallax
     };
 })();

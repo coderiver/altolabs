@@ -1,10 +1,24 @@
 export default (() => {
-    const $root   = $('body');
-    let disabled  = false;
-    let direction = null;
-    let scrollPos = $(window).scrollTop();
+    const $root    = $('body');
+    let disabled   = false;
+    let direction  = null;
+    let scrollPos  = $(window).scrollTop();
+    let prevDeltaY = null; // need for fix bug when scrolling from touchpad
+    let wheeling;
 
-    $root.on('wheel', _detectScrollDirection);
+    $root.on('wheel', (e) => {
+        // if (!wheeling) {
+        //     console.log('start scroll');
+        // }
+        // clearTimeout(wheeling);
+        // wheeling = setTimeout(() => {
+        //     console.log('end scroll');
+        //     wheeling = null;
+        // }, 100);
+
+        _detectScrollDirection(e);
+    });
+
     $root.on('scroll', (e) => {
         scrollPos = $(window).scrollTop();
     });
@@ -14,7 +28,16 @@ export default (() => {
     }
 
     function _detectScrollDirection(e) {
-        direction = (e.originalEvent.deltaY <= 0) ? 'up' : 'down';
+        let deltaY = e.originalEvent.deltaY;
+        if (deltaY < 0) {
+            direction = 'up';
+        } else if (deltaY > 0) {
+            direction = 'down';
+        } else {
+            direction = (prevDeltaY < 0) ? 'up' : 'down';
+        }
+        // direction = (deltaY <= 0) ? 'up' : 'down';
+        prevDeltaY = deltaY;
     }
 
     function disable() {
@@ -41,11 +64,16 @@ export default (() => {
         return direction;
     }
 
+    function isWheeling() {
+        return wheeling;
+    }
+
     return {
         disable,
         enable,
         isDisabled,
         getDirection,
-        getScrollPos
+        getScrollPos,
+        isWheeling
     };
 })();

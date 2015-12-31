@@ -4,6 +4,8 @@ import { pubSub, eventsNames }               from './modules/pub-sub';
 import { animations, setAnimationsProgress } from './modules/animations';
 import { pagination }                        from './modules/pagination';
 import activateFullpage                      from './modules/fp';
+import throttle                              from 'lodash.throttle';
+// import debounce                              from 'lodash.debounce';
 
 const EVENTS_LIST       = 'wheel';
 const $root             = $('body');
@@ -11,6 +13,7 @@ const $paginationsLinks = $('.pagination__link');
 const mq                = window.matchMedia('(min-width: 1024px)');
 let introState          = null; // (swiched between 1 and 2)
 let lastSectionName     = null;
+let wheeling            = null;
 
 
 // functions
@@ -48,8 +51,9 @@ function windowResizeHandler(e) {
     intro.toggleIntroTextVisibility();
 }
 
-function scrollHandlerWhenOnIntro(e) {
+const scrollHandlerWhenOnIntro = throttle((e) => {
     let direction = scroll.getDirection();
+
     if (!mq.matches) return;
     switch (direction) {
     case 'up':
@@ -59,7 +63,33 @@ function scrollHandlerWhenOnIntro(e) {
         pubSub.emit(eventsNames.INTRO_SECOND_STATE);
         break;
     }
-}
+}, 200, {trailing: false});
+
+// function scrollHandlerWhenOnIntro(e) {
+//     let direction = scroll.getDirection();
+//
+//     if (!mq.matches) return;
+//
+//     console.log(wheeling);
+//
+//     if (!wheeling) {
+//         console.log('start scroll');
+//     }
+//
+//     clearTimeout(wheeling);
+//     wheeling = setTimeout(() => {
+//         console.log('end scroll');
+//         wheeling = null;
+//         switch (direction) {
+//         case 'up':
+//             pubSub.emit(eventsNames.INTRO_FIRST_STATE);
+//             break;
+//         case 'down':
+//             pubSub.emit(eventsNames.INTRO_SECOND_STATE);
+//             break;
+//         }
+//     }, 100);
+// }
 
 // events
 mq.addListener(function(e) {
@@ -198,6 +228,7 @@ pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
 // initial actions
 $(document).ready(function() {
     $('body').addClass('in');
+
     $('.header__link').on('click', (e) => {
         if (mq.matches) return;
         e.preventDefault();
@@ -205,6 +236,8 @@ $(document).ready(function() {
             scrollTop: 0
         }, 500);
     });
+
+    setTimeout(() => intro.demonstarateParallax(!mq.matches), 1000);
 });
 
 windowResizeHandler(mq);
