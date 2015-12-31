@@ -14,6 +14,7 @@ const mq                = window.matchMedia('(min-width: 1024px)');
 let introState          = null; // (swiched between 1 and 2)
 let lastSectionName     = null;
 let wheeling            = null;
+let flag                = 0;
 
 
 // functions
@@ -51,45 +52,46 @@ function windowResizeHandler(e) {
     intro.toggleIntroTextVisibility();
 }
 
-const scrollHandlerWhenOnIntro = throttle((e) => {
-    let direction = scroll.getDirection();
-
-    if (!mq.matches) return;
-    switch (direction) {
-    case 'up':
-        pubSub.emit(eventsNames.INTRO_FIRST_STATE);
-        break;
-    case 'down':
-        pubSub.emit(eventsNames.INTRO_SECOND_STATE);
-        break;
-    }
-}, 200, {trailing: false});
-
-// function scrollHandlerWhenOnIntro(e) {
+// const scrollHandlerWhenOnIntro = throttle((e) => {
 //     let direction = scroll.getDirection();
 //
 //     if (!mq.matches) return;
-//
-//     console.log(wheeling);
-//
-//     if (!wheeling) {
-//         console.log('start scroll');
+//     switch (direction) {
+//     case 'up':
+//         pubSub.emit(eventsNames.INTRO_FIRST_STATE);
+//         break;
+//     case 'down':
+//         pubSub.emit(eventsNames.INTRO_SECOND_STATE);
+//         break;
 //     }
-//
-//     clearTimeout(wheeling);
-//     wheeling = setTimeout(() => {
-//         console.log('end scroll');
-//         wheeling = null;
-//         switch (direction) {
-//         case 'up':
-//             pubSub.emit(eventsNames.INTRO_FIRST_STATE);
-//             break;
-//         case 'down':
-//             pubSub.emit(eventsNames.INTRO_SECOND_STATE);
-//             break;
-//         }
-//     }, 100);
-// }
+// }, 200, {trailing: false});
+
+function scrollHandlerWhenOnIntro(e) {
+    console.log(flag);
+    if (flag) console.log('not going anywhere');
+    if (flag) return;
+    flag = 1;
+    let direction = scroll.getDirection();
+
+    if (!mq.matches) return;
+
+
+
+    clearTimeout(wheeling);
+    wheeling = setTimeout(() => {
+        console.log('end scroll');
+        flag = 0;
+    }, 1000);
+
+    switch (direction) {
+      case 'up':
+          pubSub.emit(eventsNames.INTRO_FIRST_STATE);
+          break;
+      case 'down':
+          pubSub.emit(eventsNames.INTRO_SECOND_STATE);
+          break;
+    }
+}
 
 // events
 mq.addListener(function(e) {
@@ -161,7 +163,7 @@ pubSub.on(eventsNames.INTRO_SECOND_STATE, () => {
 
     intro.disableParallax();
     intro.animation.play();
-    setTimeout(enableScroll, 500);
+    setTimeout(enableScroll, 2500);
 
     introState = 2;
 });
