@@ -4,8 +4,6 @@ import { pubSub, eventsNames }               from './modules/pub-sub';
 import { animations, setAnimationsProgress } from './modules/animations';
 import { pagination }                        from './modules/pagination';
 import activateFullpage                      from './modules/fp';
-import throttle                              from 'lodash.throttle';
-// import debounce                              from 'lodash.debounce';
 
 const EVENTS_LIST       = 'wheel';
 const $root             = $('body');
@@ -16,7 +14,6 @@ let lastSectionName     = null;
 
 // functions
 function disableScroll() {
-    console.log('native scroll OFF');
     if (!mq.matches) return;
     scroll.disable();
     $.fn.fullpage.setAllowScrolling(false);
@@ -24,7 +21,6 @@ function disableScroll() {
 }
 
 function enableScroll() {
-    console.log('native scroll ON');
     scroll.enable();
     $.fn.fullpage.setAllowScrolling(true);
     $.fn.fullpage.setKeyboardScrolling(true);
@@ -43,6 +39,8 @@ function windowResizeHandler(e) {
         intro.animation.progress(0).pause();
         intro.disableParallax();
         scroll.enable();
+        introState = null;
+        pubSub.removeListener(eventsNames.WHEEL_START, scrollHandlerWhenOnIntro);
         if (typeof $.fn.fullpage.destroy === 'function') {
             $.fn.fullpage.destroy('all');
         }
@@ -53,8 +51,6 @@ function windowResizeHandler(e) {
 
 function scrollHandlerWhenOnIntro(e) {
     let direction = scroll.getDirection();
-
-    if (!mq.matches) return;
 
     switch (direction) {
     case 'up':
@@ -192,7 +188,6 @@ pubSub.once(eventsNames.FP_INTRO_FOCUSIN, (props) => {
 
 pubSub.on(eventsNames.FP_INTRO_FOCUSOUT, (props) => {
     $('.links, .pagination').addClass('is-dark');
-
     pubSub.removeListener(eventsNames.WHEEL_START, scrollHandlerWhenOnIntro);
     enableScroll();
     if (mq.matches) {
