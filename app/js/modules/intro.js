@@ -1,4 +1,5 @@
 import { pubSub, eventsNames } from './pub-sub';
+import debounce from 'lodash.debounce';
 
 export default (() => {
     const $intro       = $('.intro');
@@ -84,6 +85,8 @@ export default (() => {
         }
     ];
 
+    $(window).on('resize', debounce(_updateAnimation, 300));
+
     animation
         .add(
             animProp.map((props, i) => {
@@ -97,12 +100,16 @@ export default (() => {
         )
         .add(() => $intro.toggleClass('is-animated'))
         .add([
-            TweenMax.to($charsA[1], 0.5, {
-                x: -window.innerWidth / 2,
+            TweenMax.fromTo($charsA[0], 0.5, {
+                x: 0
+            }, {
+                x: window.innerWidth / 2,
                 ease: Power1.easeInOut
             }),
-            TweenMax.to($charsA[0], 0.5, {
-                x: window.innerWidth / 2,
+            TweenMax.fromTo($charsA[1], 0.5, {
+                x: 0
+            }, {
+                x: -window.innerWidth / 2,
                 ease: Power1.easeInOut
             }),
             TweenMax.to($triangle, 0.5, {
@@ -125,7 +132,6 @@ export default (() => {
         .add(() => {
             pubSub.emit(eventsNames.INTRO_END_ANIMATIONS, { animation });
         });
-
 
     function _rotateLayers(e, posY = 0) {
         var pageX, pageY, x, y, angleX, angleY, dur;
@@ -169,6 +175,24 @@ export default (() => {
                 rotationX: `${angleX}deg`,
                 rotationY: `${angleY}deg`
             });
+        }
+    }
+
+    function _updateAnimation(e) {
+        let tweens   = animation.getTweensOf($charsA);
+        let tween1   = tweens[0];
+        let tween2   = tweens[1];
+        let newX     = window.innerWidth / 2;
+        let progress = animation.progress();
+        // animation was played at least once
+        if (typeof tweens[0].vars.css === 'object') {
+            tween1.vars.css.x = newX;
+            tween2.vars.css.x = -newX;
+            tween1.invalidate().progress(progress);
+            tween2.invalidate().progress(progress);
+        } else {
+            tween1.updateTo({x: newX});
+            tween2.updateTo({x: -newX});
         }
     }
 
