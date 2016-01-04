@@ -1,22 +1,26 @@
+import { pubSub, eventsNames } from './pub-sub';
+
 export default (() => {
     const $root    = $('body');
     let disabled   = false;
     let direction  = null;
     let scrollPos  = $(window).scrollTop();
     let prevDeltaY = null; // need for fix bug when scrolling from touchpad
-    let wheeling;
+    let wheeling   = null;
 
     $root.on('wheel', (e) => {
-        // if (!wheeling) {
-        //     console.log('start scroll');
-        // }
-        // clearTimeout(wheeling);
-        // wheeling = setTimeout(() => {
-        //     console.log('end scroll');
-        //     wheeling = null;
-        // }, 100);
-
         _detectScrollDirection(e);
+        if (!wheeling) {
+            // start of wheeling
+            pubSub.emit(eventsNames.WHEEL_START, e, direction);
+        }
+        clearTimeout(wheeling);
+        wheeling = setTimeout(() => {
+            // end of wheeling
+            wheeling = null;
+            pubSub.emit(eventsNames.WHEEL_END, e, direction);
+            direction = null;
+        }, 100);
     });
 
     $root.on('scroll', (e) => {
@@ -36,7 +40,6 @@ export default (() => {
         } else {
             direction = (prevDeltaY < 0) ? 'up' : 'down';
         }
-        // direction = (deltaY <= 0) ? 'up' : 'down';
         prevDeltaY = deltaY;
     }
 
@@ -64,16 +67,11 @@ export default (() => {
         return direction;
     }
 
-    function isWheeling() {
-        return wheeling;
-    }
-
     return {
         disable,
         enable,
         isDisabled,
         getDirection,
-        getScrollPos,
-        isWheeling
+        getScrollPos
     };
 })();
