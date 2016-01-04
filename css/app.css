@@ -55,9 +55,7 @@ body.mobile .section-intro + .section { box-shadow: 0 -10px 10px 0 rgba(0, 0, 0,
 
 body.mobile #fullpage { padding-top: 100vh; -webkit-transform: none !important; -ms-transform: none !important; transform: none !important; }
 
-body.mobile .header { background: rgba(0, 0, 0, 0.8); }
-
-body.mobile .parallax__layer, body.mobile .char { -webkit-transform: none !important; -ms-transform: none !important; transform: none !important; opacity: initial !important; }
+body.mobile .header { background: black; }
 
 .out { overflow: hidden; color: black; }
 
