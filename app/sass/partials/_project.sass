@@ -156,6 +156,9 @@ $project-inner-width: percentage(1420/1800)
   right: 0
   margin: auto
   overflow: visible
+  +r(600)
+    bottom: auto
+    min-height: 260px
   &__layer-1
     position: absolute
     top: 50%
@@ -163,10 +166,13 @@ $project-inner-width: percentage(1420/1800)
     background: img-url('milkyway-bg-layer-1.jpg') no-repeat center
     background-size: cover
     left: percentage(-115/1420)
+    +r(600)
+      display: none
     &:before
       content: ""
       display: block
       padding-bottom: percentage(567/430)
+
 
   &__layer-2
     position: absolute

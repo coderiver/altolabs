@@ -231,21 +231,24 @@ export default (() => {
     }
 
     function demonstarateParallax(makeAllowOnly) {
-        let width = window.innerWidth;
-        let height = window.innerHeight;
-
-        if (makeAllowOnly) {
-            allowParallax = true;
-            return;
-        }
-
-        _rotateLayers(0, 0);
-        setTimeout(() => _rotateLayers(width, height), 500);
-        setTimeout(() => _rotateLayers(width / 2, height / 2), 1000);
-        setTimeout(() => {
-            allowParallax = true;
-            enableParallax();
-        }, 1500);
+      _rotateLayers(0, 0);
+      allowParallax = true;
+      enableParallax();
+        // let width = window.innerWidth;
+        // let height = window.innerHeight;
+        //
+        // if (makeAllowOnly) {
+        //     allowParallax = true;
+        //     return;
+        // }
+        //
+        // _rotateLayers(0, 0);
+        // setTimeout(() => _rotateLayers(width/2, height/2), 500);
+        // setTimeout(() => _rotateLayers(width / 4, height / 4), 1000);
+        // setTimeout(() => {
+        //     allowParallax = true;
+        //     enableParallax();
+        // }, 1500);
     }
 
     function toggleIntroTextVisibility() {
